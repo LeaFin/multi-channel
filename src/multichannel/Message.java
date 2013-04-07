@@ -5,6 +5,7 @@
 package multichannel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 /**
@@ -16,10 +17,12 @@ public abstract class Message {
     private Collection<Contact> recipients;
     private String text;
     private Contact sender;
+    private Calendar sendTime; 
     
-    public Message(Collection<Contact> recipients, String text){
+    public Message(Collection<Contact> recipients, String text, Calendar sendTime){
         this.recipients = recipients;
         this.text = text;
+        this.sendTime = sendTime;
     }
 
     public void setRecipients(Collection<Contact> recipients) {
@@ -73,6 +76,13 @@ public abstract class Message {
         return printers;
     }
     
+    public boolean validateRecipients() throws NoRecipientsException{
+        if (recipients.isEmpty()){
+            throw new NoRecipientsException();
+        }
+        return true;
+    }
+    
     public abstract boolean send();
-    public abstract boolean validate();
+    public abstract boolean validate() throws Exception;
 }

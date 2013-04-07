@@ -6,6 +6,7 @@ package multichannel;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 /**
@@ -16,8 +17,8 @@ public class PrintedMessage extends Message implements ImageAddable {
     
     private Collection<BufferedImage> images;
     
-    public PrintedMessage(Collection<Contact> recipients, String text){
-        super(recipients, text);
+    public PrintedMessage(Collection<Contact> recipients, String text, Calendar sendTime){
+        super(recipients, text, sendTime);
         images = new ArrayList<BufferedImage>();
     }
 

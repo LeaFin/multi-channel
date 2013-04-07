@@ -4,6 +4,7 @@
  */
 package multichannel;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 /**
@@ -12,8 +13,8 @@ import java.util.Collection;
  */
 public class Sms extends Message {
     
-    public Sms(Collection<Contact> recipients, String text){
-        super(recipients, text);
+    public Sms(Collection<Contact> recipients, String text, Calendar sendTime){
+        super(recipients, text, sendTime);
     }
 
     @Override

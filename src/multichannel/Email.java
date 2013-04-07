@@ -6,6 +6,7 @@ package multichannel;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 /**
@@ -17,8 +18,8 @@ public class Email extends Message implements ImageAddable {
     private String subject;
     private Collection<BufferedImage> images;
     
-    public Email(Collection<Contact> recipients, String text, String subject){
-        super(recipients, text);
+    public Email(Collection<Contact> recipients, String text, String subject, Calendar sendTime){
+        super(recipients, text, sendTime);
         this.subject = subject;
         images = new ArrayList<BufferedImage>();
     }
@@ -49,8 +50,22 @@ public class Email extends Message implements ImageAddable {
         return false;
     }
 
+    /**
+     * Checking if there are recipients defined and valid.
+     * If there are no Recipients in the List. The NoRecipientsException is thrown.
+     * If a emailaddresse doesn't match the regex, the NotValidEmailException is thrown.
+     * @return boolean true, if everything validates
+     * @throws NoRecipientsException
+     * @throws NotValidEmailException
+     */
     @Override
-    public boolean validate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean validate() throws NoRecipientsException, NotValidEmailException {
+        super.validateRecipients();
+        for (String email : super.getContactEmails()){
+            if (email.trim().isEmpty() || ! email.matches("^[\\w.%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$")){
+                throw new NotValidEmailException(email);
+            }
+        }
+        return true;
     }
 }
