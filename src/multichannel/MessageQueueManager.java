@@ -33,6 +33,7 @@ public class MessageQueueManager {
      * @param text
      * @param subject
      * @param images
+     * @param sendTime 
      */
     public void createEmail(Collection<Contact> recipients, String text,
            String subject, Collection<BufferedImage> images, Calendar sendTime){
@@ -58,5 +59,19 @@ public class MessageQueueManager {
        finally {
            System.out.print(response);
        }
-   }
+    }
+    
+    public void getSendableMessages(){
+        Calendar now = Calendar.getInstance();
+        for (Message message : messageQueue){
+            if (message.getSendTime().compareTo(now) >= 0){
+                for (Class<? extends Message> klass : Message.getMessageTypes()){
+                    if (klass.isInstance(message)){
+                        klass.cast(message);
+                        message.send();
+                    }
+                }
+            }
+        }
+    }
 }

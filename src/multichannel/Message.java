@@ -5,8 +5,10 @@
 package multichannel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -18,6 +20,7 @@ public abstract class Message {
     private String text;
     private Contact sender;
     private Calendar sendTime; 
+    private static List<Class<? extends Message>> messageTypes = Arrays.asList(Email.class, Sms.class, MMS.class, PrintedMessage.class); 
     
     public Message(Collection<Contact> recipients, String text, Calendar sendTime){
         this.recipients = recipients;
@@ -48,6 +51,19 @@ public abstract class Message {
     public String getText() {
         return text;
     }
+
+    public Calendar getSendTime() {
+        return sendTime;
+    }
+
+    public void setSendTime(Calendar sendTime) {
+        this.sendTime = sendTime;
+    }
+
+    public static List<Class<? extends Message>> getMessageTypes() {
+        return messageTypes;
+    }
+    
     
     /**
      * Returns Collection of e-mail addresses for all Recipients of this Message.

@@ -68,4 +68,14 @@ public class Email extends Message implements ImageAddable {
         }
         return true;
     }
+    
+    public static void main(String[] args){
+        Printer printer = new Printer("name", "addresse");
+        Contact con = new Contact("Name", "sdf", "rasf", printer);
+        ArrayList<Contact> contacts = new ArrayList();
+        contacts.add(con);
+        
+        System.out.print(new Email(contacts, "asdf", "sasdf", Calendar.getInstance()));
+        System.out.println(Message.getMessageTypes());
+    }
 }
