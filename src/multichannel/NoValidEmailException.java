@@ -8,8 +8,8 @@ package multichannel;
  *
  * @author leandrafinger
  */
-class NotValidEmailException extends Exception {
-    public NotValidEmailException(String email){
+class NoValidEmailException extends Exception {
+    public NoValidEmailException(String email){
         super("The following email-addresse isn't valid:" + email);
     }
 }

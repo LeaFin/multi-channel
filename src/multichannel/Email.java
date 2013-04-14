@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Collection;
 
 /**
+ * 
  *
  * @author leandrafinger
  */
@@ -56,19 +57,21 @@ public class Email extends Message implements ImageAddable {
      * If a emailaddresse doesn't match the regex, the NotValidEmailException is thrown.
      * @return boolean true, if everything validates
      * @throws NoRecipientsException
-     * @throws NotValidEmailException
+     * @throws NoValidEmailException
      */
     @Override
-    public boolean validate() throws NoRecipientsException, NotValidEmailException {
+    public boolean validate() throws NoRecipientsException, NoValidEmailException {
         super.validateRecipients();
         for (String email : super.getContactEmails()){
             if (email.trim().isEmpty() || ! email.matches("^[\\w.%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$")){
-                throw new NotValidEmailException(email);
+                throw new NoValidEmailException(email);
             }
         }
         return true;
     }
     
+    
+    // Was macht das da, Printer?? Chume nöd druuus.... Ste
     public static void main(String[] args){
         Printer printer = new Printer("name", "addresse");
         Contact con = new Contact("Name", "sdf", "rasf", printer);

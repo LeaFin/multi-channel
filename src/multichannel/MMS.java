@@ -17,6 +17,7 @@ public class MMS extends Message implements ImageAddable {
     
     private Collection<BufferedImage> images;
     
+    
     public MMS(Collection<Contact> recipients, String text, Calendar sendTime){
         super(recipients, text, sendTime);
         images = new ArrayList<BufferedImage>();
@@ -26,7 +27,10 @@ public class MMS extends Message implements ImageAddable {
     public boolean send() {
         Collection<String> numbers = super.getNumbers();
         /* TODO send for each recipient */
-        return false;
+        for(String numbers: numbers){
+            System.out.print(this);
+        }
+        return true;
     }
 
     @Override
@@ -45,10 +49,30 @@ public class MMS extends Message implements ImageAddable {
         return false;
     }
 
-    @Override
-    public boolean validate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
+    
+     /**
+     * Checking if there are recipients defined and valid.
+     * If there are no Recipients in the List. The NoRecipientsException is thrown.
+     * If a Phonenumber doesn't match the regex, the NotValidNumberException is thrown.
+     * @return boolean true, if everything validates
+     * @throws NoRecipientsException
+     * @throws NotValidNumberException
+     */
+    @Override
+    public boolean validate() throws NoRecipientsException, NotValidNumberException {
+        // Check if any Recipient given
+        super.validateRecipients();
+    
+        // Check for correct Numbers of each Contact
+        for (String number : super.getNumbers()){
+            // RegEx selfmade... checks minimum Swiss-Numbers like +41792873890 or 0792873890 or 0041792873890
+            if (number.trim().isEmpty() || ! number.matches("(((0){1,2})|(\+))[0-9]{9,11}")){
+                throw new NotValidNumberException(number);
+            }
+        }
+        return true;
+    }
+
     
 }

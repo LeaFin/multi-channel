@@ -50,10 +50,30 @@ public class PrintedMessage extends Message implements ImageAddable {
         return false;
     }
 
+
+    /**
+     * Checking if there are recipients defined and valid.
+     * If there are no Recipients in the List. The NoRecipientsException is thrown.
+     * If a Printer doesn't match the regex, the NotValidNumberException is thrown.
+     * @return boolean true, if everything validates
+     * @throws NoRecipientsException
+     * @throws NoValidPrinterException
+     */
     @Override
-    public boolean validate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public boolean validate() throws NoRecipientsException, NoValidPrinterException {
+        // Check if any Recipient given
+        super.validateRecipients();
     
+        // Check for correct Printer of each Contact
+        for (Printer printer : super.getPrinters()){
+            // RegEx selfmade... i dont know what to check for a printer... it check now something like this: \\Server1\PrinterName
+            // naja klapped noned... regex macht no ken sinn...
+            if (! printer.matches("((\\){2})\w*(\\){1}\w*")){
+                throw new NoValidPrinterException(printer);
+            }
+        }
+        return true;
+    }
+   
     
 }
