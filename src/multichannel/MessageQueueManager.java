@@ -73,7 +73,7 @@ public class MessageQueueManager {
      */
     public void createMMS(Collection<Contact> recipients, String text,
            String subject, Collection<BufferedImage> images, Calendar sendTime){
-       MMS mms = new MMS(recipients, text, sendTime);
+       MMS mms = new MMS(recipients, text, subject, sendTime);
        String response = "";
        try {
            boolean is_valid = mms.validate();
@@ -141,7 +141,7 @@ public class MessageQueueManager {
      * @param images
      * @param sendTime 
      */
-    public void createPrint(Collection<Contact> recipients, String text, Collection<BufferedImage> images, Calendar sendTime){
+    public void createPrint(Collection<Contact> recipients, String text, String subject, Collection<BufferedImage> images, Calendar sendTime){
        PrintedMessage print = new PrintedMessage(recipients, text, subject, sendTime);
        String response = "";
        try {

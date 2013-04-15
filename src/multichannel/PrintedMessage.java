@@ -16,10 +16,12 @@ import java.util.Collection;
 public class PrintedMessage extends Message implements ImageAddable {
     
     private Collection<BufferedImage> images;
+    private String subject;
     
-    public PrintedMessage(Collection<Contact> recipients, String text, Calendar sendTime){
+    public PrintedMessage(Collection<Contact> recipients, String text, String subject, Calendar sendTime){
         super(recipients, text, sendTime);
         images = new ArrayList<BufferedImage>();
+        this.subject = subject;
     }
 
     @Override

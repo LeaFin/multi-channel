@@ -20,7 +20,7 @@ public class Sms extends Message {
     @Override
     public boolean send() {
         Collection<String> numbers = super.getNumbers();
-        for(String numbers: numbers){
+        for(String number : numbers){
             System.out.print(this);
         }
         return true;
@@ -57,7 +57,7 @@ public class Sms extends Message {
         // Check for correct Numbers of each Contact
         for (String number : super.getNumbers()){
             // RegEx selfmade... checks minimum Swiss-Numbers like +41792873890 or 0792873890 or 0041792873890
-            if (number.trim().isEmpty() || ! number.matches("(((0){1,2})|(\+))[0-9]{9,11}")){
+            if (number.trim().isEmpty() || ! number.matches("[(+41)(0041)0]?[(76)(77)(78)(79)]?[0-9]{7}")){
                 throw new NotValidNumberException(number);
             }
         }

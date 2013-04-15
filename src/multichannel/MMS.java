@@ -16,18 +16,20 @@ import java.util.Collection;
 public class MMS extends Message implements ImageAddable {
     
     private Collection<BufferedImage> images;
+    private String subject;
     
     
-    public MMS(Collection<Contact> recipients, String text, Calendar sendTime){
+    public MMS(Collection<Contact> recipients, String text, String subject, Calendar sendTime){
         super(recipients, text, sendTime);
         images = new ArrayList<BufferedImage>();
+        this.subject = subject;
     }
 
     @Override
     public boolean send() {
         Collection<String> numbers = super.getNumbers();
         /* TODO send for each recipient */
-        for(String numbers: numbers){
+        for(String number: numbers){
             System.out.print(this);
         }
         return true;
@@ -67,7 +69,7 @@ public class MMS extends Message implements ImageAddable {
         // Check for correct Numbers of each Contact
         for (String number : super.getNumbers()){
             // RegEx selfmade... checks minimum Swiss-Numbers like +41792873890 or 0792873890 or 0041792873890
-            if (number.trim().isEmpty() || ! number.matches("(((0){1,2})|(\+))[0-9]{9,11}")){
+            if (number.trim().isEmpty() || ! number.matches("[(+41)(0041)0]?[(76)(77)(78)(79)]?[0-9]{7}")){
                 throw new NotValidNumberException(number);
             }
         }
