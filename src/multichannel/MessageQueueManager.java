@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  *
@@ -166,17 +167,54 @@ public class MessageQueueManager {
        }
     }
     
+    /**
+     *This method checks each messeage in the Queue, if it's sendTime is before the actual time.
+     * If it is, the methode, which tells the message to send itself is called.
+     * And if that was successful the message is getting removed from the queue.
+     * TODO: check if it was successful!
+     */
     public void getSendableMessages(){
         Calendar now = Calendar.getInstance();
-        for (Message message : messageQueue){
+        Iterator<Message> messages = messageQueue.iterator();
+        while (messages.hasNext()){
+            Message message = messages.next();
             if (message.getSendTime().compareTo(now) >= 0){
-                for (Class<? extends Message> klass : Message.getMessageTypes()){
-                    if (klass.isInstance(message)){
-                        klass.cast(message);
-                        message.send();
+                try {
+                    boolean sent = sendMessage(message);
+                    if (sent){
+                        messages.remove();
                     }
+                }
+                catch (NoFittingSubclassException e){
+                    System.out.println(e.getMessage());
                 }
             }
         }
+    }
+    
+    /**
+     * Method checks which subclass of the Message class the message object,
+     * which is passed as parameter, is an instance of and the object is getting 
+     * casted to this type and it's method send() is called. 
+     * 
+     * @param message The Message object which shoud be sent.
+     * @return Retruns true if the message is sent, false if an error ocured.
+     * @throws NoFittingSubclassException, if none of the isInstance checks returns true.
+     */
+    public boolean sendMessage(Message message) throws NoFittingSubclassException {
+        for (Class<? extends Message> klass : Message.getMessageTypes()){
+            if (klass.isInstance(message)){
+                klass.cast(message);
+                try {
+                    message.send();
+                    return true;
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    return false;
+                }
+            }
+        }
+        throw new NoFittingSubclassException();
     }
 }

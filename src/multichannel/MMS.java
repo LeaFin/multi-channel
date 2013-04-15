@@ -36,7 +36,8 @@ public class MMS extends Message implements ImageAddable {
     }
 
     @Override
-    public void addImage(BufferedImage img) {
+    public void addImage(String path) {
+        BufferedImage img;
         if (validateImage(img)) {
             images.add(img);
         }

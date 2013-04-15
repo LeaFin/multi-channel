@@ -11,6 +11,6 @@ import java.awt.image.BufferedImage;
  * @author leandrafinger
  */
 public interface ImageAddable {
-    public void addImage(BufferedImage img);
+    public void addImage(String path);
     public boolean validateImage(BufferedImage img);
 }
