@@ -37,7 +37,19 @@ public class MessageQueueManager {
      */
     public void createEmail(Collection<Contact> recipients, String text,
            String subject, Collection<BufferedImage> images, Calendar sendTime){
-       Email email = new Email(recipients, text, subject, sendTime);
+        createEmail(recipients, text, subject, images, sendTime, "");
+    }
+   
+    public void createEmail(Collection<Contact> recipients, String text,
+           String subject, Collection<BufferedImage> images, Calendar sendTime, String uid){
+       Email email;
+       if (uid.equals("")){
+           email = new Email(recipients, text, subject, sendTime);
+       }
+       else {
+           email = new Email(recipients, text, subject, sendTime, uid);
+       }
+       Email.addToInstances(email);
        String response = "";
        try {
            boolean is_valid = email.validate();

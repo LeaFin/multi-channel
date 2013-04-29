@@ -27,12 +27,36 @@ public class Email extends Message implements ImageAddable {
     private String subject;
     private Collection<BufferedImage> images; //Still needed?
     private List<String> encodedImages;
+    private String uid = "";
+    private static List instances = new ArrayList<Object>();
     
     public Email(Collection<Contact> recipients, String text, String subject, Calendar sendTime){
         super(recipients, text, sendTime);
         this.subject = subject;
         images = new ArrayList<BufferedImage>();
         encodedImages = new ArrayList<String>();
+    }
+    
+    public Email(Collection<Contact> recipients, String text, String subject, Calendar sendTime, String uid){
+        super(recipients, text, sendTime);
+        this.subject = subject;
+        images = new ArrayList<BufferedImage>();
+        encodedImages = new ArrayList<String>();
+        this.uid = uid;
+    }
+    
+    public static Email getByUid(String uid) throws NoSuchUIDException{
+        for (Object object: instances){
+            Email email = (Email)object;
+            if (email.getUid().equals(uid)){
+                return email;
+            }
+        }
+        throw new NoSuchUIDException();
+    }
+    
+    public static void addToInstances(Email email){
+        instances.add(email);
     }
 
     @Override
@@ -84,7 +108,6 @@ public class Email extends Message implements ImageAddable {
             encodedImage = encodeImage(img);
             encodedImages.add(encodedImage);
         } catch (IOException ex) {
-            Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Your image couldn't be added.");
         }
     }
@@ -143,5 +166,13 @@ public class Email extends Message implements ImageAddable {
         Email email = new Email(contacts, "NachrichtenInhalt", "Subject", Calendar.getInstance());
         System.out.println(Message.getMessageTypes());
         System.out.print(email.send());
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 }

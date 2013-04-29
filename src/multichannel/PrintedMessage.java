@@ -38,7 +38,7 @@ public class PrintedMessage extends Message implements ImageAddable {
 
     @Override
     public void addImage(String path) {
-        BufferedImage img;
+        BufferedImage img = null;
         if (validateImage(img)) {
             images.add(img);
         }

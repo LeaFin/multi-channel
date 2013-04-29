@@ -4,6 +4,7 @@
  */
 package multichannel;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -76,9 +77,14 @@ public class Scheduler{
             lastMod.set(dateInt[0], dateInt[1], dateInt[2], dateInt[3], dateInt[4], dateInt[5]);
             
             if (lastMod.compareTo(lastImport) >= 0 ){
-                ArrayList<HashMap> contacts = new ArrayList<HashMap>(); 
+                event = event.replaceAll("BEGIN:VALARM[.]*END:VALARM", "");
+                ArrayList<HashMap> contacts = new ArrayList<HashMap>();
+                
                 String[] contactStrings = event.replaceAll("(ATTENDEE)(.*)(ATTENDEE|CREATED)(.*)", "$2$3").split("(ATTENDEE)");
                 HashMap mail = new HashMap();
+                
+                String uid = event.replace("(UID:)(.*)(NewLine)", "$2");
+                mail.put("uid", uid);
                 
                 for (String contact: contactStrings){
                     HashMap<String, String> contactData = new HashMap<String, String>();
@@ -162,7 +168,21 @@ public class Scheduler{
     }
     
     public void createReminder(HashMap mail){
-        queueManager.createEmail((Collection<Contact>) mail.get("recipients"), (String) mail.get("message"), (String) mail.get("subject"), mail.get("sendTime"));
+        String uid = (String) mail.get("uid");
+        Collection<Contact> recipients = (Collection<Contact>) mail.get("recipients");
+        String subject = (String) mail.get("subject");
+        String message = (String) mail.get("message");
+        Calendar sendTime = (Calendar) mail.get("sendTime");
+        try {
+            Email email = Email.getByUid(uid);
+            email.setRecipients(recipients);
+            email.setSubject(subject);
+            email.setText(message);
+            email.setSendTime(sendTime);
+        } catch (NoSuchUIDException ex) {
+            queueManager.createEmail(recipients, message, subject, new ArrayList<BufferedImage>() , sendTime, uid);
+        }
+        
     }
     
     public int [] parseTime(String dateString){
