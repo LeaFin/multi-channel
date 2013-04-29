@@ -217,4 +217,8 @@ public class MessageQueueManager {
         }
         throw new NoFittingSubclassException();
     }
+
+    void createEmail(Collection<Contact> collection, String string, String string0, Object get) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
