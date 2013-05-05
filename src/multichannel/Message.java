@@ -18,30 +18,27 @@ public abstract class Message {
     
     private Collection<Contact> recipients;
     private String text;
-    private Contact sender;
+    private static Contact sender;
     private Calendar sendTime; 
     private static List<Class<? extends Message>> messageTypes = Arrays.asList(Email.class, Sms.class, MMS.class, PrintedMessage.class); 
     
-    public Message(Collection<Contact> recipients, String text, Calendar sendTime){
+    public Message(Collection<Contact> recipients, String text, Calendar sendTime, Contact sender){
         this.recipients = recipients;
         this.text = text;
         this.sendTime = sendTime;
+        this.sender = sender;
     }
 
     public void setRecipients(Collection<Contact> recipients) {
         this.recipients = recipients;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Contact getSender() {
+    public static Contact getSender() {
         return sender;
     }
-
-    public void setSender(Contact sender) {
-        this.sender = sender;
+    
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Collection<Contact> getRecipients() {

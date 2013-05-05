@@ -19,8 +19,8 @@ public class MMS extends Message implements ImageAddable {
     private String subject;
     
     
-    public MMS(Collection<Contact> recipients, String text, String subject, Calendar sendTime){
-        super(recipients, text, sendTime);
+    public MMS(Collection<Contact> recipients, String text, String subject, Calendar sendTime, Contact sender){
+        super(recipients, text, sendTime, sender);
         images = new ArrayList<BufferedImage>();
         this.subject = subject;
     }

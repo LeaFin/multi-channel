@@ -13,8 +13,8 @@ import java.util.Collection;
  */
 public class Sms extends Message {
     
-    public Sms(Collection<Contact> recipients, String text, Calendar sendTime){
-        super(recipients, text, sendTime);
+    public Sms(Collection<Contact> recipients, String text, Calendar sendTime, Contact sender){
+        super(recipients, text, sendTime, sender);
     }
 
     @Override

@@ -27,18 +27,11 @@ public class Email extends Message implements ImageAddable {
     private String subject;
     private Collection<BufferedImage> images; //Still needed?
     private List<String> encodedImages;
-    private String uid = "";
+    private String uid;
     private static List instances = new ArrayList<Object>();
     
-    public Email(Collection<Contact> recipients, String text, String subject, Calendar sendTime){
-        super(recipients, text, sendTime);
-        this.subject = subject;
-        images = new ArrayList<BufferedImage>();
-        encodedImages = new ArrayList<String>();
-    }
-    
-    public Email(Collection<Contact> recipients, String text, String subject, Calendar sendTime, String uid){
-        super(recipients, text, sendTime);
+    public Email(Collection<Contact> recipients, String text, String subject, Calendar sendTime, String uid, Contact sender){
+        super(recipients, text, sendTime, sender);
         this.subject = subject;
         images = new ArrayList<BufferedImage>();
         encodedImages = new ArrayList<String>();
@@ -84,8 +77,10 @@ public class Email extends Message implements ImageAddable {
             to += recipient.getEmail();
             to += "> ";
         }
+        Contact sender = super.getSender();
+        String from = sender.getName() + " <" + sender.getEmail() + ">";
         String packedMessage = "===============================================" + eol
-                + "FORM: @  " + eol
+                + "FORM: " + from + eol
                 + "TO: " + to + eol
                 + "SUBJECT: " + subject + eol
                 + "===============================================" + eol
@@ -156,17 +151,20 @@ public class Email extends Message implements ImageAddable {
     
     
     // Was macht das da, Printer?? Chume nöd druuus.... Ste
-    public static void main(String[] args){
-        Printer printer = new Printer("name", "addresse");
-        Contact con = new Contact("Name", "sdf", "rasf", printer);
-        Contact con2 = new Contact("Name2", "sdf2", "rasafaeadeiraojf", printer);
-        ArrayList<Contact> contacts = new ArrayList();
-        contacts.add(con);
-        contacts.add(con2);
-        Email email = new Email(contacts, "NachrichtenInhalt", "Subject", Calendar.getInstance());
-        System.out.println(Message.getMessageTypes());
-        System.out.print(email.send());
-    }
+    // Das isch nu zum teschta gsi, ob irgendwas funktioniert.
+    // da Printer bruchts, willi ha müassa Contact-Obj. erstella, und dia an Printer händ.
+    // Di richtigi main methonda chund in scheduler, dä erstellt üs dänn nämli gad au üsi queue
+//    public static void main(String[] args){
+//        Printer printer = new Printer("name", "addresse");
+//        Contact con = new Contact("Name", "sdf", "rasf", printer);
+//        Contact con2 = new Contact("Name2", "sdf2", "rasafaeadeiraojf", printer);
+//        ArrayList<Contact> contacts = new ArrayList();
+//        contacts.add(con);
+//        contacts.add(con2);
+//        Email email = new Email(contacts, "NachrichtenInhalt", "Subject", Calendar.getInstance(), "");
+//        System.out.println(Message.getMessageTypes());
+//        System.out.print(email.send());
+//    }
 
     public String getUid() {
         return uid;

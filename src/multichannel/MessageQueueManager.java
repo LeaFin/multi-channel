@@ -17,6 +17,7 @@ import java.util.Iterator;
 public class MessageQueueManager {
     
    private Collection<Message> messageQueue;
+   private Contact owener;
    
    /**
     * Constructor, creating the ArrayList in which all Messages, which are ready
@@ -25,6 +26,14 @@ public class MessageQueueManager {
    public MessageQueueManager(){
        messageQueue = new ArrayList<Message>();
    }
+   
+   public void setOwener(Contact contact){
+       owener = contact;
+   }
+
+    public Contact getOwener() {
+        return owener;
+    }
    
     /**
      * Creating an Email object and checking if it is valid. If it is, the email
@@ -43,12 +52,7 @@ public class MessageQueueManager {
     public void createEmail(Collection<Contact> recipients, String text,
            String subject, Collection<BufferedImage> images, Calendar sendTime, String uid){
        Email email;
-       if (uid.equals("")){
-           email = new Email(recipients, text, subject, sendTime);
-       }
-       else {
-           email = new Email(recipients, text, subject, sendTime, uid);
-       }
+       email = new Email(recipients, text, subject, sendTime, uid, owener);
        Email.addToInstances(email);
        String response = "";
        try {
@@ -69,7 +73,7 @@ public class MessageQueueManager {
            response = e.getMessage();
        }
        finally {
-           System.out.print(response);
+           System.out.println(response);
        }
     }
     
@@ -86,7 +90,7 @@ public class MessageQueueManager {
      */
     public void createMMS(Collection<Contact> recipients, String text,
            String subject, Collection<BufferedImage> images, Calendar sendTime){
-       MMS mms = new MMS(recipients, text, subject, sendTime);
+       MMS mms = new MMS(recipients, text, subject, sendTime, owener);
        String response = "";
        try {
            boolean is_valid = mms.validate();
@@ -106,7 +110,7 @@ public class MessageQueueManager {
            response = e.getMessage();
        }
        finally {
-           System.out.print(response);
+           System.out.println(response);
        }
     }
     
@@ -120,7 +124,7 @@ public class MessageQueueManager {
      * @param sendTime
      */
     public void createSMS(Collection<Contact> recipients, String text, Calendar sendTime){
-       Sms sms = new Sms(recipients, text, sendTime);
+       Sms sms = new Sms(recipients, text, sendTime, owener);
        String response = "";
        
        try {
@@ -138,7 +142,7 @@ public class MessageQueueManager {
            response = e.getMessage();
        }
        finally {
-           System.out.print(response);
+           System.out.println(response);
        }
     }
     
@@ -155,7 +159,7 @@ public class MessageQueueManager {
      * @param sendTime 
      */
     public void createPrint(Collection<Contact> recipients, String text, String subject, Collection<BufferedImage> images, Calendar sendTime){
-       PrintedMessage print = new PrintedMessage(recipients, text, subject, sendTime);
+       PrintedMessage print = new PrintedMessage(recipients, text, subject, sendTime, owener);
        String response = "";
        try {
            boolean is_valid = print.validate();
@@ -175,7 +179,7 @@ public class MessageQueueManager {
            response = e.getMessage();
        }
        finally {
-           System.out.print(response);
+           System.out.println(response);
        }
     }
     
@@ -190,7 +194,7 @@ public class MessageQueueManager {
         Iterator<Message> messages = messageQueue.iterator();
         while (messages.hasNext()){
             Message message = messages.next();
-            if (message.getSendTime().compareTo(now) >= 0){
+            if (message.getSendTime().compareTo(now) <= 0){
                 try {
                     boolean sent = sendMessage(message);
                     if (sent){

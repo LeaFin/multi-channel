@@ -18,8 +18,8 @@ public class PrintedMessage extends Message implements ImageAddable {
     private Collection<BufferedImage> images;
     private String subject;
     
-    public PrintedMessage(Collection<Contact> recipients, String text, String subject, Calendar sendTime){
-        super(recipients, text, sendTime);
+    public PrintedMessage(Collection<Contact> recipients, String text, String subject, Calendar sendTime, Contact sender){
+        super(recipients, text, sendTime, sender);
         images = new ArrayList<BufferedImage>();
         this.subject = subject;
     }
