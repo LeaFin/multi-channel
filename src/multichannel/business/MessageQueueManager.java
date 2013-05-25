@@ -2,8 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package multichannel;
+package multichannel.business;
 
+import multichannel.exception.NoValidEmailException;
+import multichannel.exception.NoValidPrinterException;
+import multichannel.exception.NoFittingSubclassException;
+import multichannel.exception.NoRecipientsException;
+import multichannel.exception.NoValidNumberException;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -106,7 +111,7 @@ public class MessageQueueManager {
        catch (NoRecipientsException e){
            response = e.getMessage();
        }
-       catch (NotValidNumberException e){
+       catch (NoValidNumberException e){
            response = e.getMessage();
        }
        finally {
@@ -138,7 +143,7 @@ public class MessageQueueManager {
        catch (NoRecipientsException e){
            response = e.getMessage();
        }
-       catch (NotValidNumberException e){
+       catch (NoValidNumberException e){
            response = e.getMessage();
        }
        finally {

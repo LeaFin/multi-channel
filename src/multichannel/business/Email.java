@@ -2,8 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package multichannel;
+package multichannel.business;
 
+import multichannel.exception.NoValidEmailException;
+import multichannel.exception.NoRecipientsException;
+import multichannel.exception.NoSuchUIDException;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;

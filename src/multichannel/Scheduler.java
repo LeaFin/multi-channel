@@ -4,8 +4,14 @@
  */
 package multichannel;
 
+import multichannel.business.Printer;
+import multichannel.business.MessageQueueManager;
+import multichannel.business.CalendarImport;
+import multichannel.business.QueueChecker;
+import multichannel.business.Contact;
 import java.util.Timer;
 import java.util.TimerTask;
+import multichannel.gui.gui;
 
 /**
  *
@@ -43,10 +49,17 @@ public class Scheduler extends Timer{
         MessageQueueManager messageQueue = scheduler.getQueueManager();
         messageQueue.setOwener(owener);
         TimerTask queueChecker = scheduler.getQueueChecker();
+        
+        // GUI zeichnen
+        gui mcgui = new gui(messageQueue);
+    	mcgui.creategui();
+        
+        // Kalenderimport starten
         CalendarImport calendarImport = (CalendarImport)scheduler.getCalendarImport();
         calendarImport.addCalendar(System.getProperty("user.dir") + "/testimport.ics");
         scheduler.schedule(queueChecker, 0, 60000);
         scheduler.schedule(calendarImport, 0, 600000);
+
     }
     
 }

@@ -2,8 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package multichannel;
+package multichannel.business;
 
+import multichannel.exception.NoRecipientsException;
+import multichannel.exception.NoValidNumberException;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -11,35 +15,46 @@ import java.util.Collection;
  *
  * @author leandrafinger
  */
-public class Sms extends Message {
+public class MMS extends Message implements ImageAddable {
     
-    public Sms(Collection<Contact> recipients, String text, Calendar sendTime, Contact sender){
+    private Collection<BufferedImage> images;
+    private String subject;
+    
+    
+    public MMS(Collection<Contact> recipients, String text, String subject, Calendar sendTime, Contact sender){
         super(recipients, text, sendTime, sender);
+        images = new ArrayList<BufferedImage>();
+        this.subject = subject;
     }
 
     @Override
     public boolean send() {
         Collection<String> numbers = super.getNumbers();
-        for(String number : numbers){
+        /* TODO send for each recipient */
+        for(String number: numbers){
             System.out.print(this);
         }
         return true;
     }
-    
-    
-    /**
-     * Checking if the Text of the sms isn't too long to send.
-     * If the text is too long the return statement is true.
-     * @return boolean
-     */
-    public boolean validateText() {
-        String text = super.getText();
-        if (text.length() > 160){
-            return false;
+
+    @Override
+    public void addImage(String path) {
+        BufferedImage img = null;
+        if (validateImage(img)) {
+            images.add(img);
+        } 
+        else {
+            /* TODO throw Error */
         }
-        return true;
     }
 
+    @Override
+    public boolean validateImage(BufferedImage img) {
+        /*TODO check size */
+        return false;
+    }
+
+    
     
      /**
      * Checking if there are recipients defined and valid.
@@ -50,7 +65,7 @@ public class Sms extends Message {
      * @throws NotValidNumberException
      */
     @Override
-    public boolean validate() throws NoRecipientsException, NotValidNumberException {
+    public boolean validate() throws NoRecipientsException, NoValidNumberException {
         // Check if any Recipient given
         super.validateRecipients();
     
@@ -58,9 +73,11 @@ public class Sms extends Message {
         for (String number : super.getNumbers()){
             // RegEx selfmade... checks minimum Swiss-Numbers like +41792873890 or 0792873890 or 0041792873890
             if (number.trim().isEmpty() || ! number.matches("[(+41)(0041)0]?[(76)(77)(78)(79)]?[0-9]{7}")){
-                throw new NotValidNumberException(number);
+                throw new NoValidNumberException(number);
             }
         }
         return true;
     }
+
+    
 }
