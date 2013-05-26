@@ -19,7 +19,7 @@ public class PanelAddImage extends JPanel {
     public PanelAddImage(GuiStart maingui){
 
         labelpicture = new JLabel("Bild");
-        labelpicturepath = new JLabel(); // Für Fehler-Rückmeldungen
+        labelpicturepath = new JLabel();
 
         JButton buttonfilechooser = new ButtonFileChooser(this, maingui); // Create a
 

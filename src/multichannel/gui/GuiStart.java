@@ -2,6 +2,7 @@ package multichannel.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -118,8 +119,10 @@ public class GuiStart {
     
     public Collection<String> getPicturePath() {
         
-        Collection tempcol = null;
-        tempcol.add(panel5.getPP());
+        Collection tempcol;
+        ArrayList<String> tempprinter = new ArrayList<String>();
+        tempprinter.add(panel5.getPP());
+        tempcol = tempprinter;
         return tempcol;
         
     }
