@@ -16,15 +16,12 @@ import javax.swing.JPanel;
  *
  * @author Stephan
  */
-public class Panel3 extends JPanel {
+public class PanelSendTime extends JPanel {
 
     private JLabel labelsendtime, textsendtime;
     private JButton buttonsendtime;
 
-    public Panel3() {
-
-
-
+    public PanelSendTime() {
 
     // CheckBox erzeugen
         JCheckBox checksendtime = new CheckBoxSendTime(this);

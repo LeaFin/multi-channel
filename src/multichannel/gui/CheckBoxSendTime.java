@@ -14,9 +14,9 @@ import javax.swing.JCheckBox;
  */
 public class CheckBoxSendTime extends JCheckBox implements ActionListener {
 
-    Panel3 panel3;
+    PanelSendTime panel3;
 
-    public CheckBoxSendTime(Panel3 panel3) {
+    public CheckBoxSendTime(PanelSendTime panel3) {
 
         this.panel3 = panel3;
 

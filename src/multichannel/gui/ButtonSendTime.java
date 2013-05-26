@@ -17,10 +17,10 @@ import javax.swing.JFrame;
  */
 public class ButtonSendTime extends JButton {
 
-    private final Panel3 panel3;
+    private final PanelSendTime panel3;
     private Calendar sendtime;
 
-    public ButtonSendTime(final Panel3 panel3) {
+    public ButtonSendTime(final PanelSendTime panel3) {
         this.panel3 = panel3;
 
         setText("Datum");

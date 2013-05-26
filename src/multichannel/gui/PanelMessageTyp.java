@@ -21,10 +21,10 @@ import javax.swing.JRadioButton;
  *
  * @author Stephan
  */
-public class Panel2 extends JPanel {
+public class PanelMessageTyp extends JPanel {
 
             
-public Panel2(GuiStart maingui){
+public PanelMessageTyp(GuiStart maingui){
         
     // Label für "TYP :"
     JLabel labeltyp = new JLabel("Typ: ");

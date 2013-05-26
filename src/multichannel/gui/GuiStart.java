@@ -2,6 +2,7 @@ package multichannel.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.Collection;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -23,11 +24,11 @@ public class GuiStart {
     private int sendtyp = 1; // Standardmässig E-Mail, wie Radio Button auswahl
                   
     //  panels generien lassen
-    Panel1 panel1 = new Panel1(this); 
-    Panel2 panel2 = new Panel2(this);
-    Panel3 panel3 = new Panel3();  
-    Panel4 panel4 = new Panel4(); 
-    Panel5 panel5 = new Panel5(this);
+    PanelControl panel1 = new PanelControl(this); 
+    PanelMessageTyp panel2 = new PanelMessageTyp(this);
+    PanelSendTime panel3 = new PanelSendTime();  
+    PanelTextforMessage panel4 = new PanelTextforMessage(); 
+    PanelAddImage panel5 = new PanelAddImage(this);
       
     public GuiStart(Scheduler scheduler) {
         // Übergabe Scheduler
@@ -43,7 +44,7 @@ public class GuiStart {
         /*
          * Hinzufügen von Menü-Leiste
          */
-        JMenuBar menuBar = new Menu();
+        JMenuBar menuBar = new Menu(this);
         frame.setJMenuBar(menuBar);
  
         // Center-Panel, worin alle Panel kommen
@@ -87,6 +88,10 @@ public class GuiStart {
         return panel4.getMessage();
     }
      
+    public String getSubjectText() {
+        return panel4.getSubject();
+    }
+     
      public String getSendTimeText() {
         return panel3.getSendTimeText();
     }
@@ -110,5 +115,15 @@ public class GuiStart {
     public ContactList getContactList() {
         return scheduler.getContactList();
     }
+    
+    public Collection<String> getPicturePath() {
+        
+        Collection tempcol = null;
+        tempcol.add(panel5.getPP());
+        return tempcol;
+        
+    }
 
+
+    
 }

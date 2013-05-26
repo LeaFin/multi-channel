@@ -20,7 +20,11 @@ import javax.swing.KeyStroke;
  */
 public class Menu extends JMenuBar implements ActionListener {
 
-    public Menu() {
+    GuiStart maingui;
+            
+    public Menu(GuiStart maingui) {
+        
+        this.maingui = maingui;
 
         JMenu menuaction = new JMenu("Aktion");
         JMenu menuhelp = new JMenu("Hilfe");
@@ -35,6 +39,11 @@ public class Menu extends JMenuBar implements ActionListener {
         menuaction.add(itemactqueue);
         itemactqueue.addActionListener(this);
 
+        JMenuItem itemactsavecon = new JMenuItem("Kontake speichern");
+        itemactsavecon.setAccelerator(KeyStroke.getKeyStroke('S',
+                InputEvent.CTRL_MASK));
+        menuaction.add(itemactsavecon);
+        itemactsavecon.addActionListener(this);
 
         menuaction.addSeparator(); // Separator
 
@@ -55,7 +64,7 @@ public class Menu extends JMenuBar implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        
+
         String command = evt.getActionCommand();
 
         if (command.equals("Warteschlange ansehen")) {
@@ -67,11 +76,24 @@ public class Menu extends JMenuBar implements ActionListener {
                     JOptionPane.WARNING_MESSAGE);
         }
 
-        if (command.equals("Exit")) {
 
+        if (command.equals("Kontake speichern")) {
+            
+            maingui.getContactList().serializeContacts();
+            
+            JFrame msgframe = new JFrame();
+            JOptionPane.showMessageDialog(msgframe,
+                    "Kontakte wurden lokal abgespeichert!",
+                    "Kontakte gespeichert",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
+        if (command.equals("Exit")) {
             System.exit(0);
         }
 
+        
         if (command.equals("Über")) {
             JFrame msgframe = new JFrame();
             Object[] options = {"Super AWESOME!!"};

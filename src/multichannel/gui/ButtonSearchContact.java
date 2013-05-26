@@ -19,10 +19,10 @@ import multichannel.exception.NoContactException;
  */
 public class ButtonSearchContact extends JButton implements ActionListener {
 
-    Panel1 panel1;
+    PanelControl panel1;
 GuiStart maingui;
 
-    public ButtonSearchContact(Panel1 panel1, GuiStart maingui) {
+    public ButtonSearchContact(PanelControl panel1, GuiStart maingui) {
 
         this.panel1 = panel1;
         this.maingui = maingui;

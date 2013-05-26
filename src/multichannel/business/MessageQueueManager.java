@@ -49,13 +49,13 @@ public class MessageQueueManager {
      * @param images
      * @param sendTime 
      */
-    public void createEmail(Collection<Contact> recipients, String text,
+public void createEmail(Collection<Contact> recipients, String text,
            String subject, Collection<String> images, Calendar sendTime){
         createEmail(recipients, text, subject, images, sendTime, "");
-    }
+}
    
-    public void createEmail(Collection<Contact> recipients, String text,
-           String subject, Collection<String> images, Calendar sendTime, String uid){
+    public void createEmail(Collection<Contact> recipients, String text, 
+                            String subject, Collection<String> images, Calendar sendTime, String uid){
        Email email = new Email(recipients, text, subject, sendTime, uid, owener);
        Email.addToInstances(email);
        String response = "";

@@ -19,12 +19,12 @@ import multichannel.business.Contact;
  *
  * @author Stephan
  */
-public class Panel1 extends JPanel {
+public class PanelControl extends JPanel {
 
     DefaultListModel defaultListModel;
     
 
-    public Panel1(GuiStart maingui) {
+    public PanelControl(GuiStart maingui) {
         
         JPanel panelbuttonsend = new JPanel();
         JPanel panelreciever = new JPanel();

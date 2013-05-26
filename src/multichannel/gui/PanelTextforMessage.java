@@ -4,28 +4,34 @@
  */
 package multichannel.gui;
 
+import java.awt.Dimension;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 /**
  *
  * @author Stephan
  */
-public class Panel4 extends JPanel {
+public class PanelTextforMessage extends JPanel {
 
+    JTextField txtsubject;
     JTextArea txtareamessage;
     JLabel labelmessage, labelmessageerr;
     
-    public Panel4() {
+    public PanelTextforMessage() {
 
         // Konfig der Nachricht Abschnitt
         // Nachrichten Abschnitt (Scrollbalken, etc)
         labelmessage = new JLabel("Nachricht");
         labelmessageerr = new JLabel(); // Für Rückmeldungen
+        
+        txtsubject = new JTextField("Kein Betreff");
         
         txtareamessage = new JTextArea(20, 40);
         txtareamessage.setLineWrap(true);
@@ -40,6 +46,8 @@ public class Panel4 extends JPanel {
 
         add(labelmessage);
         add(labelmessageerr);
+        add(txtsubject);
+        add(Box.createRigidArea(new Dimension(5, 5)));
         add(txtareamessage);
 
 
@@ -47,6 +55,9 @@ public class Panel4 extends JPanel {
     
     public String getMessage(){
         return txtareamessage.getText();
-        
+    }
+    
+    public String getSubject(){
+        return txtsubject.getText();
     }
 }

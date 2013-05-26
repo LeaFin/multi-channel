@@ -18,10 +18,10 @@ import multichannel.exception.NoContactException;
  */
 public class ButtonAddContact extends JButton implements ActionListener {
 
-    Panel1 panel1;
+    PanelControl panel1;
     GuiStart maingui;
 
-    public ButtonAddContact(Panel1 panel1, GuiStart maingui) {
+    public ButtonAddContact(PanelControl panel1, GuiStart maingui) {
 
         this.panel1 = panel1;
         this.maingui = maingui;

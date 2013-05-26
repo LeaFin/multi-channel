@@ -19,9 +19,9 @@ import javax.swing.JFileChooser;
 public class ButtonFileChooser extends JButton implements ActionListener {
 
     GuiStart maingui;
-    Panel5 panel5;
+    PanelAddImage panel5;
 
-    public ButtonFileChooser(Panel5 panel5, GuiStart maingui) {
+    public ButtonFileChooser(PanelAddImage panel5, GuiStart maingui) {
 
         this.maingui = maingui;
         this.panel5 = panel5;
