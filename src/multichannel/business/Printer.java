@@ -2,13 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package multichannel;
+package multichannel.business;
+
+import java.io.Serializable;
 
 /**
  *
  * @author leandrafinger
  */
-public class Printer {
+public class Printer implements Serializable {
     
     private String name;
     private String addresse;

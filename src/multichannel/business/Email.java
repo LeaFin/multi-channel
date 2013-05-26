@@ -2,8 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package multichannel;
+package multichannel.business;
 
+import multichannel.exception.NoValidEmailException;
+import multichannel.exception.NoRecipientsException;
+import multichannel.exception.NoSuchUIDException;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -12,8 +15,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
 
@@ -25,10 +26,10 @@ import org.apache.commons.codec.binary.Base64;
 public class Email extends Message implements ImageAddable {
     
     private String subject;
-    private Collection<BufferedImage> images; //Still needed?
+    private Collection<BufferedImage> images;
     private List<String> encodedImages;
     private String uid;
-    private static List instances = new ArrayList<Object>();
+    private static List<Email> instances = new ArrayList<Email>();
     
     public Email(Collection<Contact> recipients, String text, String subject, Calendar sendTime, String uid, Contact sender){
         super(recipients, text, sendTime, sender);
@@ -39,8 +40,7 @@ public class Email extends Message implements ImageAddable {
     }
     
     public static Email getByUid(String uid) throws NoSuchUIDException{
-        for (Object object: instances){
-            Email email = (Email)object;
+        for (Email email: instances){
             if (email.getUid().equals(uid)){
                 return email;
             }
@@ -97,7 +97,7 @@ public class Email extends Message implements ImageAddable {
     @Override
     public void addImage(String path) {
         BufferedImage img;
-        String encodedImage;
+        String encodedImage = "";
         try {
             img = ImageIO.read(new File(path));
             encodedImage = encodeImage(img);
@@ -126,8 +126,7 @@ public class Email extends Message implements ImageAddable {
 
     @Override
     public boolean validateImage(BufferedImage img) {
-        /* TODO check size */
-        return false;
+        return true;
     }
 
     /**
@@ -148,23 +147,6 @@ public class Email extends Message implements ImageAddable {
         }
         return true;
     }
-    
-    
-    // Was macht das da, Printer?? Chume nöd druuus.... Ste
-    // Das isch nu zum teschta gsi, ob irgendwas funktioniert.
-    // da Printer bruchts, willi ha müassa Contact-Obj. erstella, und dia an Printer händ.
-    // Di richtigi main methonda chund in scheduler, dä erstellt üs dänn nämli gad au üsi queue
-//    public static void main(String[] args){
-//        Printer printer = new Printer("name", "addresse");
-//        Contact con = new Contact("Name", "sdf", "rasf", printer);
-//        Contact con2 = new Contact("Name2", "sdf2", "rasafaeadeiraojf", printer);
-//        ArrayList<Contact> contacts = new ArrayList();
-//        contacts.add(con);
-//        contacts.add(con2);
-//        Email email = new Email(contacts, "NachrichtenInhalt", "Subject", Calendar.getInstance(), "");
-//        System.out.println(Message.getMessageTypes());
-//        System.out.print(email.send());
-//    }
 
     public String getUid() {
         return uid;

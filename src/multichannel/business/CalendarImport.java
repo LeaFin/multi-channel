@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package multichannel;
+package multichannel.business;
 
+import multichannel.exception.NoContactException;
+import multichannel.exception.NoSuchUIDException;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -19,6 +21,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import multichannel.Scheduler;
 
 /**
  *
@@ -30,9 +33,11 @@ public class CalendarImport extends TimerTask {
     private Calendar lastImport = Calendar.getInstance();
     private MessageQueueManager queueManager;
     private Lock lock = new ReentrantLock();
+    private ContactList contactList;
     
-    public CalendarImport(MessageQueueManager queueManager){
+    public CalendarImport(MessageQueueManager queueManager, ContactList contactList){
         this.queueManager = queueManager;
+        this.contactList = contactList;
     }
     
     public void addCalendar(String path){
@@ -116,7 +121,7 @@ public class CalendarImport extends TimerTask {
                     }
                    
                     if (contact.matches(".*mailto.*")){
-                        contactData.put("email", contact.replaceFirst("(.*mailto:)([\\w.%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}?)((NewLine|;).*)", "$2"));
+                        contactData.put("email", contact.replaceFirst("(.*mailto:)([\\w.%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4})", "$2"));
                     }
                     contacts.add(contactData);
                 }
@@ -125,12 +130,12 @@ public class CalendarImport extends TimerTask {
                 
                 for (HashMap contactData: contacts){
                     try {
-                        Contact c = Contact.getByName((String)contactData.get("name"));
+                        Contact c = contactList.getByName((String)contactData.get("name"));
                         recipients.add(c);
                     }
                     catch (NoContactException ex) {
                         try {
-                            Contact c = Contact.getByEmail((String)contactData.get("email"));
+                            Contact c = contactList.getByEmail((String)contactData.get("email"));
                             recipients.add(c);
                         }
                         catch (NoContactException e) {
@@ -203,7 +208,7 @@ public class CalendarImport extends TimerTask {
             email.setText(message);
             email.setSendTime(sendTime);
         } catch (NoSuchUIDException ex) {
-            queueManager.createEmail(recipients, message, subject, new ArrayList<BufferedImage>() , sendTime, uid);
+            queueManager.createEmail(recipients, message, subject, new ArrayList<String>() , sendTime, uid);
         }
     }
     
