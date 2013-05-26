@@ -24,7 +24,7 @@ import javax.swing.JRadioButton;
 public class Panel2 extends JPanel {
 
             
-public Panel2(Gui maingui){
+public Panel2(GuiStart maingui){
         
     // Label für "TYP :"
     JLabel labeltyp = new JLabel("Typ: ");

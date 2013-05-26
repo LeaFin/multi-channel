@@ -7,13 +7,17 @@ package multichannel.gui;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import multichannel.business.Contact;
+import multichannel.exception.NoContactException;
+import multichannel.exception.NoValidNumberException;
 
 /**
  *
@@ -21,10 +25,10 @@ import multichannel.business.Contact;
  */
 public class ButtonSend extends JButton implements ActionListener {
 
-    Gui maingui;
+    GuiStart maingui;
     Panel1 panel1;
 
-    public ButtonSend(Panel1 panel1, Gui maingui) {
+    public ButtonSend(Panel1 panel1, GuiStart maingui) {
 
         this.maingui = maingui;
         this.panel1 = panel1;
@@ -40,23 +44,24 @@ public class ButtonSend extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        JFrame msgframe = new JFrame();
+
 
         // MAIL
 
-        if (maingui.getSendTyp() == 1) {
-            System.out.println("Noch nicht definiert 1");
+        if (maingui.getSendTyp() != 2) {
+            sendmultimedia();
         }
 
         // MMS
         if (maingui.getSendTyp() == 2) {
-            System.out.println("Noch nicht definiert 2");
+            sendmultimedia();
         }
 
-        // SMS
-        if (maingui.getSendTyp() == 3) {
+    }
 
-            // Fehlerüberprüfung
+    private void sendsms() {
+        JFrame msgframe = new JFrame();
+        // Fehlerüberprüfung
             // Check: Anzahl Zeichen<=160 und mind. 1 Empfänger
             if (maingui.getMessageText().length() > 160 || panel1.getContactList().getSize() == 0) {
                 // Zuviele Zeichen
@@ -78,34 +83,60 @@ public class ButtonSend extends JButton implements ActionListener {
                 }
 
             } else {
-
                 Calendar cldr = Calendar.getInstance();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-                Collection<Contact> con = null;
-
                 // Umwandeln der contactlist ins das Format Collection
-                   /*     for(int i = 0; i <= panel1.getContactList().getSize(); i++  ){
-                 con = panel1.getContactList().get(i);
-                 }*/
-
-                System.out.println("SMS WIRD Erstellt. Folgendes wird übergeben (DEBUG):");
-                System.out.println("Kontakte: " + con);
-                System.out.println("Nachricht: " + maingui.getMessageText());
-                System.out.println("Datum: " + cldr);
-
+                Collection<Contact> con = null;
+                ArrayList<Contact> temparray = new ArrayList<Contact>();
+                for (int i = 0; i < panel1.getContactList().getSize(); i++) {
+                    temparray.add( (Contact) panel1.getContactList().get(i) );
+                 }
+                con = temparray;
+                
                 // Hier wird das SMS erstellt im QueeManager
+                // Wie kann man response abfangen und ausgeben?
                 maingui.getMessageQueueManager().createSMS(con, maingui.getMessageText(), cldr);
 
             }
-        }
+    }
 
+    private void sendmultimedia() {
+        JFrame msgframe = new JFrame();
+        // Fehlerüberprüfung
+            // Check: Anzahl Zeichen<=160 und mind. 1 Empfänger
+            if (panel1.getContactList().getSize() == 0) {
+                // Keine Empfänger
+                if (panel1.getContactList().getSize() == 0) {
+                    JOptionPane.showMessageDialog(msgframe,
+                            "Bitte füge einen Empfänger hinzu \n",
+                            "Keine Empfänger",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                Calendar cldr = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-        // PRINT
-        if (maingui.getSendTyp() == 4) {
-            System.out.println("Noch nicht definiert 4");
-        }
+                // Umwandeln der contactlist ins das Format Collection
+                Collection<Contact> con = null;
+                ArrayList<Contact> temparray = new ArrayList<Contact>();
+                for (int i = 0; i < panel1.getContactList().getSize(); i++) {
+                    temparray.add( (Contact) panel1.getContactList().get(i) );
+                 }
+                con = temparray;
+                
+                // Hier wird die Multimedia-Nachricht erstellt im QueeManager
+                // Wie kann man response abfangen und ausgeben?
+                if(maingui.getSendTyp() == 1){
+                maingui.getMessageQueueManager().createEmail(con, maingui.getMessageText(), "Subject" , null ,cldr);
+                }
+                if(maingui.getSendTyp() == 3){
+                maingui.getMessageQueueManager().createMMS(con, maingui.getMessageText(), "Subject" , null ,cldr);
+                }
+                if(maingui.getSendTyp() == 4){
+                maingui.getMessageQueueManager().createPrint(con, maingui.getMessageText(), "Subject" , null ,cldr);
+                }
 
-
+            }
     }
 }

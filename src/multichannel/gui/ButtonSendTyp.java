@@ -18,9 +18,9 @@ import javax.swing.JRadioButton;
  */
 public class ButtonSendTyp extends JPanel implements ActionListener {
 
-    Gui maingui;
+    GuiStart maingui;
             
-    public ButtonSendTyp(Gui maingui) {
+    public ButtonSendTyp(GuiStart maingui) {
 
         this.maingui = maingui;
         
