@@ -7,15 +7,16 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import multichannel.Scheduler;
+import multichannel.business.ContactList;
 import multichannel.business.MessageQueueManager;
 
 public class GuiStart {
     
     // Hauptframe
     private final JFrame frame = new JFrame();
-     
-    // INSTANZ Manager
-    private MessageQueueManager queueManager;
+    
+    Scheduler scheduler;
                   
     // übergreifende variabel
     private String inputVerzStr;
@@ -28,9 +29,14 @@ public class GuiStart {
     Panel4 panel4 = new Panel4(); 
     Panel5 panel5 = new Panel5(this);
       
- 
+    public GuiStart(Scheduler scheduler) {
+        // Übergabe Scheduler
+        this.scheduler = scheduler;
+    }
+    
     public void creategui() {
-
+        
+        
         // Frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -86,7 +92,7 @@ public class GuiStart {
     }
      
      public MessageQueueManager getMessageQueueManager() {
-        return queueManager;
+        return scheduler.getQueueManager();
     }
 
     public void setPicturePath(String labelpicturepath) {
@@ -100,7 +106,9 @@ public class GuiStart {
         return this.inputVerzStr;
     }
 
-    public GuiStart(MessageQueueManager queueManager) {
-        this.queueManager = queueManager;
+
+    public ContactList getContactList() {
+        return scheduler.getContactList();
     }
+
 }

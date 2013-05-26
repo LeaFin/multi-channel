@@ -6,8 +6,6 @@ package multichannel.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -21,10 +19,12 @@ import multichannel.exception.NoContactException;
 public class ButtonAddContact extends JButton implements ActionListener {
 
     Panel1 panel1;
+    GuiStart maingui;
 
-    public ButtonAddContact(Panel1 panel1) {
+    public ButtonAddContact(Panel1 panel1, GuiStart maingui) {
 
         this.panel1 = panel1;
+        this.maingui = maingui;
 
         setText("Neuer Empfänger");
 
@@ -62,8 +62,9 @@ public class ButtonAddContact extends JButton implements ActionListener {
 
         // Neuer Kontakt in die Liste aufnehmen
         //printer.getText() fehtl
-        Contact.createNewContact(name.getText(), phone.getText(), email.getText(), null);
 
-        return Contact.getByName(name.getText());
+        maingui.getContactList().createNewContact(name.getText(), phone.getText(), email.getText(), null);
+
+        return maingui.getContactList().getByName(name.getText());
     }
 }

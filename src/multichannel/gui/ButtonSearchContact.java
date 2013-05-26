@@ -6,8 +6,6 @@ package multichannel.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,10 +20,12 @@ import multichannel.exception.NoContactException;
 public class ButtonSearchContact extends JButton implements ActionListener {
 
     Panel1 panel1;
+GuiStart maingui;
 
-    public ButtonSearchContact(Panel1 panel1) {
+    public ButtonSearchContact(Panel1 panel1, GuiStart maingui) {
 
         this.panel1 = panel1;
+        this.maingui = maingui;
 
         setText("Adressbuch öffnen");
 
@@ -61,8 +61,8 @@ public class ButtonSearchContact extends JButton implements ActionListener {
         // Kontakt suchen
         if( !name.getText().isEmpty() && !email.getText().isEmpty()){
             // Wenn Name gefunden und E-Mails ebenfalls eingeben, match??
-            if( Contact.getByName(name.getText()).getEmail().equals(email.getText())){
-                return Contact.getByName(name.getText());
+            if( maingui.getContactList().getByName(name.getText()).getEmail().equals(email.getText())){
+                return maingui.getContactList().getByName(name.getText());
             } else {
                 JOptionPane.showMessageDialog(msgframe,
                             "Kontakt nicht gefunden. Bitte Name und E-Mail überprüfen.",
@@ -73,7 +73,7 @@ public class ButtonSearchContact extends JButton implements ActionListener {
         
         if( !name.getText().isEmpty() ){
          try {
-            return Contact.getByName(name.getText());
+            return maingui.getContactList().getByName(name.getText());
         } catch (NoContactException ex) {
             JOptionPane.showMessageDialog(msgframe,
                             "Keinen Kontakt mit dem Namen  '" + name.getText() + "' gefunden.",
@@ -85,7 +85,7 @@ public class ButtonSearchContact extends JButton implements ActionListener {
         
         if( !email.getText().isEmpty()){
         try {
-            return Contact.getByEmail(email.getText());
+            return maingui.getContactList().getByEmail(email.getText());
         } catch (NoContactException ex) {
             JOptionPane.showMessageDialog(msgframe,
                             "Keinen Kontakt mit der E-Mail  '" + email.getText() + "' gefunden.",

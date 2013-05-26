@@ -15,39 +15,29 @@ import javax.swing.JFrame;
  *
  * @author Stephan
  */
-public class ButtonSendTime extends JButton implements ActionListener {
+public class ButtonSendTime extends JButton {
 
-    Panel3 panel3;
-    Calendar sendtime;
+    private final Panel3 panel3;
+    private Calendar sendtime;
 
-    public ButtonSendTime(Panel3 panel3) {
-
-        
+    public ButtonSendTime(final Panel3 panel3) {
         this.panel3 = panel3;
 
         setText("Datum");
 
-        addActionListener(actionListener);
+        addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // DATUM via JDialog abfragen
+                sendtime = new Datepicker().setPickedDate();
+                // Zeit ins Feld schreiben
+                // Vorher typ umwandeln
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
+                if (sendtime != null) {
+                    panel3.setSendTimeText(sdf.format(sendtime.getTime()));
+                }
+            }
+        });
     }
-
-    
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-       
-        // DATUM via JDialog abfragen
-       sendtime = new Datepicker().setPickedDate();
-
-        // Zeit ins Feld schreiben
-        // Vorher typ umwandeln
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-
-        if (sendtime != null) {
-            panel3.setSendTimeText(sdf.format(sendtime.getTime()));
-        }
-
-    }
-    
-    
 }

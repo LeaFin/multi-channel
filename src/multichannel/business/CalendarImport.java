@@ -33,9 +33,11 @@ public class CalendarImport extends TimerTask {
     private Calendar lastImport = Calendar.getInstance();
     private MessageQueueManager queueManager;
     private Lock lock = new ReentrantLock();
+    private ContactList contactList;
     
-    public CalendarImport(MessageQueueManager queueManager){
+    public CalendarImport(MessageQueueManager queueManager, ContactList contactList){
         this.queueManager = queueManager;
+        this.contactList = contactList;
     }
     
     public void addCalendar(String path){
@@ -128,12 +130,12 @@ public class CalendarImport extends TimerTask {
                 
                 for (HashMap contactData: contacts){
                     try {
-                        Contact c = Contact.getByName((String)contactData.get("name"));
+                        Contact c = contactList.getByName((String)contactData.get("name"));
                         recipients.add(c);
                     }
                     catch (NoContactException ex) {
                         try {
-                            Contact c = Contact.getByEmail((String)contactData.get("email"));
+                            Contact c = contactList.getByEmail((String)contactData.get("email"));
                             recipients.add(c);
                         }
                         catch (NoContactException e) {
@@ -206,7 +208,7 @@ public class CalendarImport extends TimerTask {
             email.setText(message);
             email.setSendTime(sendTime);
         } catch (NoSuchUIDException ex) {
-            queueManager.createEmail(recipients, message, subject, new ArrayList<BufferedImage>() , sendTime, uid);
+            queueManager.createEmail(recipients, message, subject, new ArrayList<String>() , sendTime, uid);
         }
     }
     

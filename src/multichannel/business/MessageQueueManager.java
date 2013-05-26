@@ -50,23 +50,21 @@ public class MessageQueueManager {
      * @param sendTime 
      */
     public void createEmail(Collection<Contact> recipients, String text,
-           String subject, Collection<BufferedImage> images, Calendar sendTime){
+           String subject, Collection<String> images, Calendar sendTime){
         createEmail(recipients, text, subject, images, sendTime, "");
     }
    
     public void createEmail(Collection<Contact> recipients, String text,
-           String subject, Collection<BufferedImage> images, Calendar sendTime, String uid){
-       Email email;
-       email = new Email(recipients, text, subject, sendTime, uid, owener);
+           String subject, Collection<String> images, Calendar sendTime, String uid){
+       Email email = new Email(recipients, text, subject, sendTime, uid, owener);
        Email.addToInstances(email);
        String response = "";
        try {
            boolean is_valid = email.validate();
-           boolean images_valid = true;
-           for (BufferedImage img : images){
-               images_valid = images_valid && email.validateImage(img);
+           for (String img : images){
+               email.addImage(img);
            }
-           if (is_valid && images_valid){
+           if (is_valid){
                messageQueue.add(email);
                response = "Your email was successfully added to the Queue.";
            }

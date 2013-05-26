@@ -11,6 +11,7 @@ import multichannel.business.QueueChecker;
 import multichannel.business.Contact;
 import java.util.Timer;
 import java.util.TimerTask;
+import multichannel.business.ContactList;
 import multichannel.gui.GuiStart;
 
 /**
@@ -22,10 +23,12 @@ public class Scheduler extends Timer{
     private MessageQueueManager queueManager;
     private TimerTask calendarImport;
     private TimerTask queueChecker;
+    private ContactList contactList;
     
-    public Scheduler(){
+    public Scheduler(ContactList contactList){
         queueManager = new MessageQueueManager();
-        calendarImport = new CalendarImport(queueManager);
+        this.contactList = contactList;
+        calendarImport = new CalendarImport(queueManager, contactList);
         queueChecker = new QueueChecker(queueManager);
     }
 
@@ -40,18 +43,29 @@ public class Scheduler extends Timer{
     public MessageQueueManager getQueueManager() {
         return queueManager;
     }
-    
+
+    public ContactList getContactList() {
+        return contactList;
+    }
     
     // main methode must be in here to use Timer.
     public static void main(String[] args){
-        Scheduler scheduler = new Scheduler();
-        Contact owener = new Contact("Name", "076 238 19 38", "abc@gmail.com", new Printer("name", "addresse"));
+        ContactList contactList = ContactList.deserializeContacts();
+        Contact owener = null;
+        if (contactList.getContacts().isEmpty()){
+            owener = contactList.createNewContact("Owener", "076 238 19 38", "abc@gmail.com", new Printer("name", "addresse"));
+        }
+        else{
+            owener = contactList.getContacts().get(0);
+        }
+        Scheduler scheduler = new Scheduler(contactList);
+        contactList = ContactList.deserializeContacts();
         MessageQueueManager messageQueue = scheduler.getQueueManager();
         messageQueue.setOwener(owener);
         TimerTask queueChecker = scheduler.getQueueChecker();
         
         // GUI zeichnen
-        GuiStart mcgui = new GuiStart(messageQueue);
+        GuiStart mcgui = new GuiStart(scheduler);
     	mcgui.creategui();
         
         // Kalenderimport starten

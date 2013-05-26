@@ -4,6 +4,11 @@
  */
 package multichannel.business;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import multichannel.exception.NoContactException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,44 +17,18 @@ import java.util.List;
  *
  * @author leandrafinger
  */
-public class Contact {
+public class Contact implements Serializable {
     
     private String name;
     private String phone;
     private String email;
     private Printer printer;
-    private static List instances = new ArrayList<Object>();
     
     public Contact(String name, String phone, String email, Printer printer){
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.printer = printer;
-    }
-    
-    public static void createNewContact(String name, String phone, String email, Printer printer){
-        Contact newContact = new Contact(name, phone, email, printer);
-        instances.add(newContact);
-    }
-    
-    public static Contact getByName(String name) throws NoContactException{
-        for (Object object: instances){
-            Contact contact = (Contact)object;
-            if (contact.getName().equals(name)){
-                return contact;
-            }
-        }
-        throw new NoContactException();
-    }
-    
-    public static Contact getByEmail(String email) throws NoContactException{
-        for (Object object: instances){
-            Contact contact = (Contact)object;
-            if (contact.getEmail().equals(email)){
-                return contact;
-            }
-        }
-        throw new NoContactException();
     }
 
     public void setEmail(String email) {

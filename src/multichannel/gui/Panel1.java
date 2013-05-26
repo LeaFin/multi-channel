@@ -44,8 +44,8 @@ public class Panel1 extends JPanel {
 
        
         JButton buttonsend = new ButtonSend(this, maingui);
-        JButton buttonadd = new ButtonAddContact(this);
-        JButton buttonsearch = new ButtonSearchContact(this);
+        JButton buttonadd = new ButtonAddContact(this, maingui);
+        JButton buttonsearch = new ButtonSearchContact(this, maingui);
 
         JLabel labelto = new JLabel("Empfänger: ");
         JLabel labeltoerr = new JLabel(); // Für Rückmeldungen
@@ -76,6 +76,5 @@ public class Panel1 extends JPanel {
     public DefaultListModel getContactList() {
         return defaultListModel;
     }
-    
-    
+
 }
