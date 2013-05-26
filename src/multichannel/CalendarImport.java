@@ -116,7 +116,7 @@ public class CalendarImport extends TimerTask {
                     }
                    
                     if (contact.matches(".*mailto.*")){
-                        contactData.put("email", contact.replaceFirst("(.*mailto:)([\\w.%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4})", "$2"));
+                        contactData.put("email", contact.replaceFirst("(.*mailto:)([\\w.%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}?)((NewLine|;).*)", "$2"));
                     }
                     contacts.add(contactData);
                 }
