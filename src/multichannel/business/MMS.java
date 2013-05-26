@@ -4,12 +4,16 @@
  */
 package multichannel.business;
 
+import java.awt.Image;
 import multichannel.exception.NoRecipientsException;
 import multichannel.exception.NoValidNumberException;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -17,13 +21,13 @@ import java.util.Collection;
  */
 public class MMS extends Message implements ImageAddable {
     
-    private Collection<BufferedImage> images;
+    private Collection<Image> images;
     private String subject;
     
     
     public MMS(Collection<Contact> recipients, String text, String subject, Calendar sendTime, Contact sender){
         super(recipients, text, sendTime, sender);
-        images = new ArrayList<BufferedImage>();
+        images = new ArrayList<Image>();
         this.subject = subject;
     }
 
@@ -38,23 +42,30 @@ public class MMS extends Message implements ImageAddable {
     }
 
     @Override
-    public void addImage(String path) {
-        BufferedImage img = null;
+    public boolean addImage(String path) {
+        BufferedImage img;
+        try{
+            img = ImageIO.read(new File(path));
+        } catch (IOException ex) {
+            System.out.println("Your image couldn't be added.");
+            return false;
+        }
         if (validateImage(img)) {
             images.add(img);
-        } 
-        else {
-            /* TODO throw Error */
         }
+        else {
+            Image new_img = img.getScaledInstance(160, -1, Image.SCALE_SMOOTH);
+            images.add(new_img);
+        }
+        return true;
     }
 
-    @Override
     public boolean validateImage(BufferedImage img) {
-        /*TODO check size */
+        if (img.getWidth() <= 160){
+            return true;
+        }
         return false;
     }
-
-    
     
      /**
      * Checking if there are recipients defined and valid.

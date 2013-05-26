@@ -26,7 +26,6 @@ import org.apache.commons.codec.binary.Base64;
 public class Email extends Message implements ImageAddable {
     
     private String subject;
-    private Collection<BufferedImage> images;
     private List<String> encodedImages;
     private String uid;
     private static List<Email> instances = new ArrayList<Email>();
@@ -34,7 +33,6 @@ public class Email extends Message implements ImageAddable {
     public Email(Collection<Contact> recipients, String text, String subject, Calendar sendTime, String uid, Contact sender){
         super(recipients, text, sendTime, sender);
         this.subject = subject;
-        images = new ArrayList<BufferedImage>();
         encodedImages = new ArrayList<String>();
         this.uid = uid;
     }
@@ -95,15 +93,17 @@ public class Email extends Message implements ImageAddable {
     }
 
     @Override
-    public void addImage(String path) {
+    public boolean addImage(String path) {
         BufferedImage img;
         String encodedImage = "";
         try {
             img = ImageIO.read(new File(path));
             encodedImage = encodeImage(img);
             encodedImages.add(encodedImage);
+            return true;
         } catch (IOException ex) {
             System.out.println("Your image couldn't be added.");
+            return false;
         }
     }
     
@@ -122,11 +122,6 @@ public class Email extends Message implements ImageAddable {
         baos.close();
         encodedImage = java.net.URLEncoder.encode(encodedImage, "ISO-8859-1");
         return encodedImage;
-    }
-
-    @Override
-    public boolean validateImage(BufferedImage img) {
-        return true;
     }
 
     /**

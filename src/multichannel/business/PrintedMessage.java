@@ -7,9 +7,12 @@ package multichannel.business;
 import multichannel.exception.NoValidPrinterException;
 import multichannel.exception.NoRecipientsException;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -39,22 +42,17 @@ public class PrintedMessage extends Message implements ImageAddable {
     }
 
     @Override
-    public void addImage(String path) {
-        BufferedImage img = null;
-        if (validateImage(img)) {
+    public boolean addImage(String path) {
+        BufferedImage img;
+        try{
+            img = ImageIO.read(new File(path));
             images.add(img);
+        } catch (IOException ex) {
+            System.out.println("Your image couldn't be added.");
+            return false;
         }
-        else {
-            /* TODO throw Error */
-        }
+        return true;
     }
-
-    @Override
-    public boolean validateImage(BufferedImage img) {
-        /*TODO check size */
-        return false;
-    }
-
 
     /**
      * Checking if there are recipients defined and valid.
