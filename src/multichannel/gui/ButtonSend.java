@@ -51,16 +51,16 @@ public class ButtonSend extends JButton implements ActionListener {
 
         // MMS
         if (maingui.getSendTyp() == 2) {
-            sendmultimedia();
+            sendsms();
         }
 
     }
 
-    private Calendar convertDate(){
+    private Calendar convertDate() {
         Calendar cldr = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-        if( !"sofort".equals(maingui.getSendTimeText())){
+        if (!"sofort".equals(maingui.getSendTimeText())) {
             try {
                 cldr.setTime(sdf.parse(maingui.getSendTimeText()));
                 System.out.println("Time set to: " + cldr.getTime());
@@ -72,45 +72,34 @@ public class ButtonSend extends JButton implements ActionListener {
             System.out.println("Time set to: " + cldr.getTime());
             return cldr;
         }
-        
+
         return cldr;
     }
-    
-    
-    private Collection<Contact> convertContact(){
+
+    private Collection<Contact> convertContact() {
         // Umwandeln der contactlist ins das Format Collection
-            Collection<Contact> con = null;
-            ArrayList<Contact> temparray = new ArrayList<Contact>();
-            for (int i = 0; i < panel1.getContactList().getSize(); i++) {
-                temparray.add((Contact) panel1.getContactList().get(i));
-            }
-            con = temparray;
-            
-            return con;
+        Collection<Contact> con = null;
+        ArrayList<Contact> temparray = new ArrayList<Contact>();
+        for (int i = 0; i < panel1.getContactList().getSize(); i++) {
+            temparray.add((Contact) panel1.getContactList().get(i));
+        }
+        con = temparray;
+
+        return con;
     }
-    
-    
+
     private void sendsms() {
-        JFrame msgframe = new JFrame();
+
         // Fehlerüberprüfung
         // Check: Anzahl Zeichen<=160 und mind. 1 Empfänger
         if (maingui.getMessageText().length() > 160 || panel1.getContactList().getSize() == 0) {
             // Zuviele Zeichen
             if (maingui.getMessageText().length() > 160) {
-                JOptionPane.showMessageDialog(msgframe,
-                        "Ein SMS darf nicht mehr als 160 Zeichen haben! \n "
-                        + "Bitte entferne "
-                        + (maingui.getMessageText().length() - 160)
-                        + " zeichen.",
-                        "Mehr als 160 Zeichen",
-                        JOptionPane.WARNING_MESSAGE);
+                PopUpMoreThan160();
             }
             // Keine Empfänger
             if (panel1.getContactList().getSize() == 0) {
-                JOptionPane.showMessageDialog(msgframe,
-                        "Bitte füge einen Empfänger hinzu \n",
-                        "Keine Empfänger",
-                        JOptionPane.WARNING_MESSAGE);
+                PopUpNoReceptions();
             }
 
         } else {
@@ -123,15 +112,9 @@ public class ButtonSend extends JButton implements ActionListener {
     private void sendmultimedia() {
         JFrame msgframe = new JFrame();
         // Fehlerüberprüfung
-        // Check: Anzahl Zeichen<=160 und mind. 1 Empfänger
+        // Check: mind. 1 Empfänger
         if (panel1.getContactList().getSize() == 0) {
-            // Keine Empfänger
-            if (panel1.getContactList().getSize() == 0) {
-                JOptionPane.showMessageDialog(msgframe,
-                        "Bitte füge einen Empfänger hinzu \n",
-                        "Keine Empfänger",
-                        JOptionPane.WARNING_MESSAGE);
-            }
+            PopUpNoReceptions();
         } else {
 
             // Hier wird die Multimedia-Nachricht erstellt im QueeManager
@@ -147,5 +130,24 @@ public class ButtonSend extends JButton implements ActionListener {
             }
 
         }
+    }
+
+    private void PopUpNoReceptions() {
+        JFrame msgframe = new JFrame();
+        JOptionPane.showMessageDialog(msgframe,
+                "Bitte füge einen Empfänger hinzu \n",
+                "Keine Empfänger",
+                JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void PopUpMoreThan160() {
+        JFrame msgframe = new JFrame();
+        JOptionPane.showMessageDialog(msgframe,
+                "Ein SMS darf nicht mehr als 160 Zeichen haben! \n\n"
+                + "Bitte entferne "
+                + (maingui.getMessageText().length() - 160)
+                + " zeichen.",
+                "Mehr als 160 Zeichen",
+                JOptionPane.WARNING_MESSAGE);
     }
 }

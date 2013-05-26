@@ -22,6 +22,29 @@ public class ContactList implements Serializable {
     
     private ArrayList<Contact> contacts = new ArrayList<Contact>();
     
+    
+    /**
+     * Checks the new Contact. Minimum a Name with an Phonenumber, E-MAil Adress or Printer is needed 
+     * 
+     * @param name
+     * @param phone
+     * @param email
+     * @param printer
+     * @return true or false
+     */
+    public boolean ErrorParser(String name,String phone,String email,String printer){
+        
+        if(name.isEmpty()){
+            return false;
+        }
+        if(phone.isEmpty() && email.isEmpty() && printer.isEmpty()){
+            return false;
+        }
+ 
+        return true;
+    
+    }
+            
     public Contact createNewContact(String name, String phone, String email, Printer printer){
         Contact newContact = new Contact(name, phone, email, printer);
         contacts.add(newContact);

@@ -23,8 +23,7 @@ public class ButtonSendTyp extends JPanel implements ActionListener {
     public ButtonSendTyp(GuiStart maingui) {
 
         this.maingui = maingui;
-        
-        
+
         
         // Create the radio buttons.
         JRadioButton rbuttonmail = new JRadioButton("E-Mail");
@@ -71,30 +70,23 @@ public class ButtonSendTyp extends JPanel implements ActionListener {
             maingui.setSendTyp(1);
             //labelmessageerr.setText("");
         }
-
-
         // MMS
         if (radiobutton.getText().equals("MMS")) {
-            maingui.setSendTyp(2);
-            
+            maingui.setSendTyp(3);
             //labelmessageerr.setText("");
         }
         // SMS
         if (radiobutton.getText().equals("SMS")) {
-            maingui.setSendTyp(3);
-
+            maingui.setSendTyp(2);
             //labelmessageerr.setText("Warnung: Max. 160 Zeichen!");
             //labelmessageerr.setForeground(Color.red);
             //labelmessageerr.setFont(new Font("Courier New", Font.ITALIC, 12));
         }
         // PRINT
-        if (radiobutton.getText().equals("Drucker")) {
+        if (radiobutton.getText().equals("Drucken")) {
             maingui.setSendTyp(4);
-            
+
             //labelmessageerr.setText("");
         }
-
-
-
     }
 }
