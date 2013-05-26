@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-class guidatepicker {
+class Datepicker {
 		int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
 		int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);;
 		JLabel l = new JLabel("", JLabel.CENTER);
@@ -23,7 +23,7 @@ class guidatepicker {
 		JDialog d;
 		JButton[] button = new JButton[49];
 
-public guidatepicker(JFrame parent) {
+public Datepicker(JFrame parent) {
 			d = new JDialog();
 			d.setModal(true);
 			String[] header = { "Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat" };
