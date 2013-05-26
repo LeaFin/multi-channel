@@ -9,7 +9,6 @@ import multichannel.exception.NoValidPrinterException;
 import multichannel.exception.NoFittingSubclassException;
 import multichannel.exception.NoRecipientsException;
 import multichannel.exception.NoValidNumberException;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -61,8 +60,9 @@ public void createEmail(Collection<Contact> recipients, String text,
        String response = "";
        try {
            boolean is_valid = email.validate();
+           boolean img_valid = true;
            for (String img : images){
-               email.addImage(img);
+               img_valid = email.addImage(img) && img_valid;
            }
            if (is_valid){
                messageQueue.add(email);
@@ -92,14 +92,14 @@ public void createEmail(Collection<Contact> recipients, String text,
      * @param sendTime 
      */
     public void createMMS(Collection<Contact> recipients, String text,
-           String subject, Collection<BufferedImage> images, Calendar sendTime){
+           String subject, Collection<String> images, Calendar sendTime){
        MMS mms = new MMS(recipients, text, subject, sendTime, owener);
        String response = "";
        try {
            boolean is_valid = mms.validate();
            boolean images_valid = true;
-           for (BufferedImage img : images){
-               images_valid = images_valid && mms.validateImage(img);
+           for (String img : images){
+               images_valid = images_valid && mms.addImage(img);
            }
            if (is_valid && images_valid){
                messageQueue.add(mms);
@@ -161,14 +161,14 @@ public void createEmail(Collection<Contact> recipients, String text,
      * @param images
      * @param sendTime 
      */
-    public void createPrint(Collection<Contact> recipients, String text, String subject, Collection<BufferedImage> images, Calendar sendTime){
+    public void createPrint(Collection<Contact> recipients, String text, String subject, Collection<String> images, Calendar sendTime){
        PrintedMessage print = new PrintedMessage(recipients, text, subject, sendTime, owener);
        String response = "";
        try {
            boolean is_valid = print.validate();
            boolean images_valid = true;
-           for (BufferedImage img : images){
-               images_valid = images_valid && print.validateImage(img);
+           for (String img : images){
+               images_valid = images_valid && print.addImage(img);
            }
            if (is_valid && images_valid){
                messageQueue.add(print);

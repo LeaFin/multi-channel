@@ -4,13 +4,10 @@
  */
 package multichannel.business;
 
-import java.awt.image.BufferedImage;
-
 /**
  *
  * @author leandrafinger
  */
 public interface ImageAddable {
-    public void addImage(String path);
-    public boolean validateImage(BufferedImage img);
+    public boolean addImage(String path);
 }
