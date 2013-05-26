@@ -22,7 +22,7 @@ public class Panel5 extends JPanel {
     
     JLabel labelpicturepath, labelpicture;
     
-    public Panel5(Gui maingui){
+    public Panel5(GuiStart maingui){
 
         labelpicture = new JLabel("Bild");
         labelpicturepath = new JLabel(); // Für Fehler-Rückmeldungen

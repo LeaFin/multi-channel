@@ -11,7 +11,7 @@ import multichannel.business.QueueChecker;
 import multichannel.business.Contact;
 import java.util.Timer;
 import java.util.TimerTask;
-import multichannel.gui.Gui;
+import multichannel.gui.GuiStart;
 
 /**
  *
@@ -51,7 +51,7 @@ public class Scheduler extends Timer{
         TimerTask queueChecker = scheduler.getQueueChecker();
         
         // GUI zeichnen
-        Gui mcgui = new Gui(messageQueue);
+        GuiStart mcgui = new GuiStart(messageQueue);
     	mcgui.creategui();
         
         // Kalenderimport starten

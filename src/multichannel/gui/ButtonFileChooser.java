@@ -18,10 +18,10 @@ import javax.swing.JFileChooser;
  */
 public class ButtonFileChooser extends JButton implements ActionListener {
 
-    Gui maingui;
+    GuiStart maingui;
     Panel5 panel5;
 
-    public ButtonFileChooser(Panel5 panel5, Gui maingui) {
+    public ButtonFileChooser(Panel5 panel5, GuiStart maingui) {
 
         this.maingui = maingui;
         this.panel5 = panel5;
