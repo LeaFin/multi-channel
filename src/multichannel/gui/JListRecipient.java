@@ -5,8 +5,6 @@
 package multichannel.gui;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -30,12 +28,12 @@ public class JListRecipient extends JList {
 
         //Empfängerliste
         setModel(defaultListModel);
-
         setToolTipText("Doppelklick um Empfänger zu entfernen");
+        
         //Tooltips sofort anzeigen ohne verzögerung
         ToolTipManager.sharedInstance().setInitialDelay(0);
 
-        setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         // grösse definieren
         setMinimumSize(new Dimension( 200, 80 ));
 
@@ -43,8 +41,8 @@ public class JListRecipient extends JList {
         setVisibleRowCount(5); 
 
         
-        //   MouseListener hinzufügen
-        // Doppelklcik entfernt kontakt
+        // MouseListener hinzufügen
+        // Doppelklick entfernt kontakt
         MouseListener mouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {

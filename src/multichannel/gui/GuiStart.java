@@ -3,6 +3,7 @@ package multichannel.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -91,7 +92,7 @@ public class GuiStart {
         return panel4.getSubject();
     }
      
-     public String getSendTimeText() {
+     public Calendar getSendTimeText() {
         return panel3.getSendTimeText();
     }
      

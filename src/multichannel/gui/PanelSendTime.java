@@ -6,6 +6,8 @@ package multichannel.gui;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -18,6 +20,7 @@ import javax.swing.JPanel;
  */
 public class PanelSendTime extends JPanel {
 
+    Calendar sendtime;
     private JLabel labelsendtime, textsendtime;
     private JButton buttonsendtime;
 
@@ -31,7 +34,8 @@ public class PanelSendTime extends JPanel {
         labelsendtime = new JLabel("Sendezeit: ");
         labelsendtime.setVisible(false);
         // Textfeld mit sendezeit
-        textsendtime = new JLabel("sofort");
+        textsendtime = new JLabel("");
+        setSendTimeText(Calendar.getInstance());
         textsendtime.setVisible(false);
 
         // Button erzeugen
@@ -54,12 +58,15 @@ public class PanelSendTime extends JPanel {
         add(buttonsendtime);
     }
 
-    public void setSendTimeText(String sendtime) {
-        this.textsendtime.setText(sendtime);
+    public void setSendTimeText(Calendar sendtime) {
+        this.sendtime = sendtime;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        this.textsendtime.setText(sdf.format(sendtime.getTime()));
+        
     }
     
-    public String getSendTimeText() {
-        return this.textsendtime.getText();
+    public Calendar getSendTimeText() {
+        return this.sendtime;
     }
     
 

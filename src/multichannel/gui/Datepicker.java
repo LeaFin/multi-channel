@@ -36,6 +36,7 @@ final class Datepicker {
             button[x].setBackground(Color.white);
             if (x > 6) {
                 button[x].addActionListener(new ActionListener() {
+                    @Override
                     public void actionPerformed(ActionEvent ae) {
                         day = button[selection].getActionCommand();
                         datedialog.dispose();
@@ -103,7 +104,5 @@ final class Datepicker {
         Calendar cal = Calendar.getInstance();
         cal.set(year, month, Integer.parseInt(day));
         return cal;
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        //return sdf.format(cal.getTime());
     }
 }

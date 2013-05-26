@@ -56,6 +56,7 @@ public class ButtonSend extends JButton implements ActionListener {
 
     }
 
+    /*
     private Calendar convertDate() {
         Calendar cldr = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -75,7 +76,7 @@ public class ButtonSend extends JButton implements ActionListener {
 
         return cldr;
     }
-
+*/
     private Collection<Contact> convertContact() {
         // Umwandeln der contactlist ins das Format Collection
         Collection<Contact> con = null;
@@ -105,7 +106,7 @@ public class ButtonSend extends JButton implements ActionListener {
         } else {
             // Hier wird das SMS erstellt im QueeManager
             // Wie kann man response abfangen und ausgeben?
-            maingui.getMessageQueueManager().createSMS(convertContact(), maingui.getMessageText(), convertDate());
+            maingui.getMessageQueueManager().createSMS(convertContact(), maingui.getMessageText(), maingui.getSendTimeText());
         }
     }
 
@@ -120,13 +121,13 @@ public class ButtonSend extends JButton implements ActionListener {
             // Hier wird die Multimedia-Nachricht erstellt im QueeManager
             // Wie kann man response abfangen und ausgeben?
             if (maingui.getSendTyp() == 1) {
-                maingui.getMessageQueueManager().createEmail(convertContact(), maingui.getMessageText(), maingui.getSubjectText(), maingui.getPicturePath(), convertDate());
+                maingui.getMessageQueueManager().createEmail(convertContact(), maingui.getMessageText(), maingui.getSubjectText(), maingui.getPicturePath(), maingui.getSendTimeText());
             }
             if (maingui.getSendTyp() == 3) {
-                maingui.getMessageQueueManager().createMMS(convertContact(), maingui.getMessageText(), maingui.getSubjectText(), maingui.getPicturePath(), convertDate());
+                maingui.getMessageQueueManager().createMMS(convertContact(), maingui.getMessageText(), maingui.getSubjectText(), maingui.getPicturePath(), maingui.getSendTimeText());
             }
             if (maingui.getSendTyp() == 4) {
-                maingui.getMessageQueueManager().createPrint(convertContact(), maingui.getMessageText(), maingui.getSubjectText(), maingui.getPicturePath(), convertDate());
+                maingui.getMessageQueueManager().createPrint(convertContact(), maingui.getMessageText(), maingui.getSubjectText(), maingui.getPicturePath(), maingui.getSendTimeText());
             }
 
         }

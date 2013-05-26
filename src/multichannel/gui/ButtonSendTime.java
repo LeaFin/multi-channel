@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 
 /**
  *
@@ -35,7 +34,7 @@ public class ButtonSendTime extends JButton {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
                 if (sendtime != null) {
-                    panel3.setSendTimeText(sdf.format(sendtime.getTime()));
+                    panel3.setSendTimeText(sendtime);
                 }
             }
         });
