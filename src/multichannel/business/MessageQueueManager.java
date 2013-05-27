@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.UUID;
 
 /**
  *
@@ -51,7 +52,9 @@ public class MessageQueueManager {
      */
 public void createEmail(Collection<Contact> recipients, String text,
            String subject, Collection<String> images, Calendar sendTime){
-        createEmail(recipients, text, subject, images, sendTime, "");
+        UUID uuid = UUID.randomUUID();
+        String uid = uuid.toString();
+        createEmail(recipients, text, subject, images, sendTime, uid);
 }
    
     public void createEmail(Collection<Contact> recipients, String text, 

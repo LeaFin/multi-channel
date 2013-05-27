@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
@@ -28,7 +29,7 @@ public class Email extends Message implements ImageAddable {
     private String subject;
     private List<String> encodedImages;
     private String uid;
-    private static List<Email> instances = new ArrayList<Email>();
+    private static HashMap<String, Email> instances = new HashMap<String, Email>();
     
     public Email(Collection<Contact> recipients, String text, String subject, Calendar sendTime, String uid){
         super(recipients, text, sendTime);
@@ -38,16 +39,14 @@ public class Email extends Message implements ImageAddable {
     }
     
     public static Email getByUid(String uid) throws NoSuchUIDException{
-        for (Email email: instances){
-            if (email.getUid().equals(uid)){
-                return email;
-            }
+        if(instances.containsKey(uid)){
+            return instances.get(uid);
         }
         throw new NoSuchUIDException();
     }
     
     public static void addToInstances(Email email){
-        instances.add(email);
+        instances.put(email.getUid(), email);
     }
 
     @Override
