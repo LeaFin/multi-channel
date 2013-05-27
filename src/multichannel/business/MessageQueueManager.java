@@ -33,6 +33,7 @@ public class MessageQueueManager {
    
    public void setOwener(Contact contact){
        owener = contact;
+       Message.setSender(owener);
    }
 
     public Contact getOwener() {
@@ -55,7 +56,7 @@ public void createEmail(Collection<Contact> recipients, String text,
    
     public void createEmail(Collection<Contact> recipients, String text, 
                             String subject, Collection<String> images, Calendar sendTime, String uid){
-       Email email = new Email(recipients, text, subject, sendTime, uid, owener);
+       Email email = new Email(recipients, text, subject, sendTime, uid);
        Email.addToInstances(email);
        String response = "";
        try {
@@ -93,13 +94,15 @@ public void createEmail(Collection<Contact> recipients, String text,
      */
     public void createMMS(Collection<Contact> recipients, String text,
            String subject, Collection<String> images, Calendar sendTime){
-       MMS mms = new MMS(recipients, text, subject, sendTime, owener);
+       MMS mms = new MMS(recipients, text, subject, sendTime);
        String response = "";
        try {
            boolean is_valid = mms.validate();
            boolean images_valid = true;
-           for (String img : images){
-               images_valid = images_valid && mms.addImage(img);
+           if (images.size()>0){
+               for (String img : images){
+                   images_valid = images_valid && mms.addImage(img);
+               }
            }
            if (is_valid && images_valid){
                messageQueue.add(mms);
@@ -127,7 +130,7 @@ public void createEmail(Collection<Contact> recipients, String text,
      * @param sendTime
      */
     public void createSMS(Collection<Contact> recipients, String text, Calendar sendTime){
-       Sms sms = new Sms(recipients, text, sendTime, owener);
+       Sms sms = new Sms(recipients, text, sendTime);
        String response = "";
        
        try {
@@ -162,7 +165,7 @@ public void createEmail(Collection<Contact> recipients, String text,
      * @param sendTime 
      */
     public void createPrint(Collection<Contact> recipients, String text, String subject, Collection<String> images, Calendar sendTime){
-       PrintedMessage print = new PrintedMessage(recipients, text, subject, sendTime, owener);
+       PrintedMessage print = new PrintedMessage(recipients, text, subject, sendTime);
        String response = "";
        try {
            boolean is_valid = print.validate();
@@ -235,9 +238,5 @@ public void createEmail(Collection<Contact> recipients, String text,
             }
         }
         throw new NoFittingSubclassException();
-    }
-
-    void createEmail(Collection<Contact> collection, String string, String string0, Object get) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

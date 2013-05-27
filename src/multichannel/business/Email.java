@@ -30,8 +30,8 @@ public class Email extends Message implements ImageAddable {
     private String uid;
     private static List<Email> instances = new ArrayList<Email>();
     
-    public Email(Collection<Contact> recipients, String text, String subject, Calendar sendTime, String uid, Contact sender){
-        super(recipients, text, sendTime, sender);
+    public Email(Collection<Contact> recipients, String text, String subject, Calendar sendTime, String uid){
+        super(recipients, text, sendTime);
         this.subject = subject;
         encodedImages = new ArrayList<String>();
         this.uid = uid;

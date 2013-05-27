@@ -23,11 +23,10 @@ public abstract class Message {
     private Calendar sendTime; 
     private static List<Class<? extends Message>> messageTypes = Arrays.asList(Email.class, Sms.class, MMS.class, PrintedMessage.class); 
     
-    public Message(Collection<Contact> recipients, String text, Calendar sendTime, Contact sender){
+    public Message(Collection<Contact> recipients, String text, Calendar sendTime){
         this.recipients = recipients;
         this.text = text;
         this.sendTime = sendTime;
-        this.sender = sender;
     }
 
     public void setRecipients(Collection<Contact> recipients) {
@@ -36,6 +35,10 @@ public abstract class Message {
 
     public static Contact getSender() {
         return sender;
+    }
+    
+    public static void setSender(Contact sender){
+        Message.sender = sender;
     }
     
     public void setText(String text) {
@@ -77,6 +80,7 @@ public abstract class Message {
     public Collection<String> getNumbers() {
         Collection<String> numbers = new ArrayList<String>();
         for (Contact recipient: recipients){
+            System.out.println("recipients: "+ recipients + recipient);
             numbers.add(recipient.getPhone());
         }
         return numbers;

@@ -25,8 +25,8 @@ public class MMS extends Message implements ImageAddable {
     private String subject;
     
     
-    public MMS(Collection<Contact> recipients, String text, String subject, Calendar sendTime, Contact sender){
-        super(recipients, text, sendTime, sender);
+    public MMS(Collection<Contact> recipients, String text, String subject, Calendar sendTime){
+        super(recipients, text, sendTime);
         images = new ArrayList<Image>();
         this.subject = subject;
     }
@@ -83,7 +83,7 @@ public class MMS extends Message implements ImageAddable {
         // Check for correct Numbers of each Contact
         for (String number : super.getNumbers()){
             // RegEx selfmade... checks minimum Swiss-Numbers like +41792873890 or 0792873890 or 0041792873890
-            if (number.trim().isEmpty() || ! number.matches("[(+41)(0041)0]?[(76)(77)(78)(79)]?[0-9]{7}")){
+            if (number.trim().isEmpty() || ! number.matches("[+0]{1}0?(41)?7[6789]{1}[0-9]{7}")){
                 throw new NoValidNumberException(number);
             }
         }
