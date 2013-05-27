@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import multichannel.Scheduler;
+import multichannel.business.CalendarImport;
 import multichannel.business.ContactList;
 import multichannel.business.MessageQueueManager;
 
@@ -113,7 +114,8 @@ public class GuiStart {
 
 
     public ContactList getContactList() {
-        return scheduler.getContactList();
+        CalendarImport calImport = (CalendarImport)scheduler.getCalendarImport();
+        return calImport.getContactList();
     }
     
     public Collection<String> getPicturePath() {

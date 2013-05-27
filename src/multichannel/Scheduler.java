@@ -22,12 +22,10 @@ public class Scheduler extends Timer{
     private MessageQueueManager queueManager;
     private TimerTask calendarImport;
     private TimerTask queueChecker;
-    private ContactList contactList;
     
-    public Scheduler(ContactList contactList){
+    public Scheduler(){
         queueManager = new MessageQueueManager();
-        this.contactList = contactList;
-        calendarImport = new CalendarImport(queueManager, contactList);
+        calendarImport = new CalendarImport(queueManager);
         queueChecker = new QueueChecker(queueManager);
     }
 
@@ -42,10 +40,6 @@ public class Scheduler extends Timer{
     public MessageQueueManager getQueueManager() {
         return queueManager;
     }
-
-    public ContactList getContactList() {
-        return contactList;
-    }
     
     // main methode must be in here to use Timer.
     public static void main(String[] args){
@@ -57,7 +51,7 @@ public class Scheduler extends Timer{
         else{
             owener = contactList.getContacts().get(0);
         }
-        Scheduler scheduler = new Scheduler(contactList);
+        Scheduler scheduler = new Scheduler();
         MessageQueueManager messageQueue = scheduler.getQueueManager();
         messageQueue.setOwener(owener);
         TimerTask queueChecker = scheduler.getQueueChecker();
@@ -68,6 +62,7 @@ public class Scheduler extends Timer{
         
         // Kalenderimport starten
         CalendarImport calendarImport = (CalendarImport)scheduler.getCalendarImport();
+        calendarImport.setContactList(contactList);
         calendarImport.addCalendar(System.getProperty("user.dir") + "/testimport.ics");
         scheduler.schedule(calendarImport, 0, 600000);
         

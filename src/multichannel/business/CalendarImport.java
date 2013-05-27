@@ -35,11 +35,18 @@ public class CalendarImport extends TimerTask {
     private Lock lock = new ReentrantLock();
     private ContactList contactList;
     
-    public CalendarImport(MessageQueueManager queueManager, ContactList contactList){
+    public CalendarImport(MessageQueueManager queueManager){
         this.queueManager = queueManager;
-        this.contactList = contactList;
     }
     
+    public void setContactList(ContactList contactList){
+        this.contactList = contactList;
+    }
+
+    public ContactList getContactList() {
+        return contactList;
+    }
+
     public void addCalendar(String path){
         calendars.add(path);
     }
