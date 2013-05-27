@@ -21,7 +21,6 @@ public abstract class Message {
     private String text;
     private static Contact sender;
     private Calendar sendTime; 
-    private static List<Class<? extends Message>> messageTypes = Arrays.asList(Email.class, Sms.class, MMS.class, PrintedMessage.class); 
     
     public Message(Collection<Contact> recipients, String text, Calendar sendTime){
         this.recipients = recipients;
@@ -59,10 +58,6 @@ public abstract class Message {
 
     public void setSendTime(Calendar sendTime) {
         this.sendTime = sendTime;
-    }
-
-    public static List<Class<? extends Message>> getMessageTypes() {
-        return messageTypes;
     }
     
     
@@ -123,4 +118,4 @@ public abstract class Message {
     };
     public abstract String pack();
     public abstract boolean validate() throws Exception;
-}
+ }
