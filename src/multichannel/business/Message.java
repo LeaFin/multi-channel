@@ -80,7 +80,6 @@ public abstract class Message {
     public Collection<String> getNumbers() {
         Collection<String> numbers = new ArrayList<String>();
         for (Contact recipient: recipients){
-            System.out.println("recipients: "+ recipients + recipient);
             numbers.add(recipient.getPhone());
         }
         return numbers;

@@ -79,13 +79,11 @@ public class ButtonSend extends JButton implements ActionListener {
 */
     private Collection<Contact> convertContact() {
         // Umwandeln der contactlist ins das Format Collection
-        Collection<Contact> con = null;
-        ArrayList<Contact> temparray = new ArrayList<Contact>();
+        Collection<Contact> con = new ArrayList<Contact>();
         for (int i = 0; i < panel1.getContactList().getSize(); i++) {
-            temparray.add((Contact) panel1.getContactList().get(i));
+            Contact contact = (Contact) panel1.getContactList().get(i);
+            con.add(contact);
         }
-        con = temparray;
-
         return con;
     }
 

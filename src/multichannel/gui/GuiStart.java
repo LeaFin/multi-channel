@@ -117,10 +117,11 @@ public class GuiStart {
     }
     
     public Collection<String> getPicturePath() {
-        Collection tempcol;
-        ArrayList<String> tempprinter = new ArrayList<String>();
-        tempprinter.add(panel5.getPP());
-        tempcol = tempprinter;
+        Collection<String> tempcol = new ArrayList<String>();
+        String picturePath = panel5.getPP();
+        if (!picturePath.trim().isEmpty()){
+            tempcol.add(picturePath);
+        }
         return tempcol;
     }
 

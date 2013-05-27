@@ -37,7 +37,10 @@ public class ButtonAddContact extends JButton implements ActionListener {
         try {
             // KONTAKT erstellen und gleich hizufügen
             // (String name, String phone, String email, Printer printer) 
-            panel1.addContact(createcontact());
+            Contact newContact = createcontact();
+            if (newContact != null){
+                panel1.addContact(newContact);
+            }
             
         } catch (NoContactException ex) {
             System.out.println("Fehler beim hinzufügen von dem neuen Kontakt!" + ex.getLocalizedMessage());
