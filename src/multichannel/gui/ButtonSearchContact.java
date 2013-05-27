@@ -27,7 +27,7 @@ GuiStart maingui;
         this.panel1 = panel1;
         this.maingui = maingui;
 
-        setText("Adressbuch öffnen");
+        setText("Adressbuch durchsuchen");
 
         addActionListener(this);
     }
@@ -56,7 +56,7 @@ GuiStart maingui;
         Object[] message = {"Name: ", name, "E-Mail: ", email, };
 
         JOptionPane pane = new JOptionPane(message, JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
-        pane.createDialog(null, "ADressbuch: Kontakt suchen").setVisible(true);
+        pane.createDialog(null, "Adressbuch: Kontakt suchen").setVisible(true);
 
         // Kontakt suchen
         if( !name.getText().isEmpty() && !email.getText().isEmpty()){

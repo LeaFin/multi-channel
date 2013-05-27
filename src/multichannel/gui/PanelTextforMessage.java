@@ -26,6 +26,9 @@ public class PanelTextforMessage extends JPanel {
     
     public PanelTextforMessage() {
 
+        // Panel worin alle Elemente kommen, für den Abstand auf den Seiten
+        JPanel container = new JPanel();
+        
         // Konfig der Nachricht Abschnitt
         // Nachrichten Abschnitt (Scrollbalken, etc)
         labelmessage = new JLabel("Nachricht");
@@ -41,15 +44,17 @@ public class PanelTextforMessage extends JPanel {
         msgscroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         txtareamessage.requestFocus();
 
-
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        add(labelmessage);
-        add(labelmessageerr);
-        add(txtsubject);
-        add(Box.createRigidArea(new Dimension(5, 5)));
-        add(txtareamessage);
-
+        
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        add(Box.createRigidArea(new Dimension(10, 0)));
+        add(container);
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.add(labelmessage);
+        container.add(labelmessageerr);
+        container.add(txtsubject);
+        container.add(Box.createRigidArea(new Dimension(7, 7)));
+        container.add(txtareamessage);
+        add(Box.createRigidArea(new Dimension(10, 0)));
 
     }
     

@@ -6,6 +6,7 @@ package multichannel.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import javax.swing.JCheckBox;
 
 /**
@@ -29,16 +30,11 @@ public class CheckBoxSendTime extends JCheckBox implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (isSelected() == true) {
             panel3.setElementsVisible(true);
         } else {
             panel3.setElementsVisible(false);
-            panel3.setSendTimeText("sofort");
+            panel3.setSendTimeText( Calendar.getInstance() );
         }
-
-        //Frame aktualisieren
-        //frame.getContentPane().validate();
-        //frame.getContentPane().repaint();
     }
 }

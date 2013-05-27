@@ -4,6 +4,7 @@
  */
 package multichannel.gui;
 
+import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,11 +19,12 @@ public class PanelAddImage extends JPanel {
     
     public PanelAddImage(GuiStart maingui){
 
-        labelpicture = new JLabel("Bild");
+        labelpicture = new JLabel("  Bild");
         labelpicturepath = new JLabel();
 
         JButton buttonfilechooser = new ButtonFileChooser(this, maingui); // Create a
 
+        setLayout(new FlowLayout(FlowLayout.LEFT));
         add(labelpicture);
         add(buttonfilechooser);
         add(labelpicturepath);

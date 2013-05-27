@@ -3,6 +3,7 @@ package multichannel.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -42,13 +43,11 @@ public class GuiStart {
         // Frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /*
-         * Hinzufügen von Menü-Leiste
-         */
+        // Hinzufügen von Menü-Leiste
         JMenuBar menuBar = new Menu(this);
         frame.setJMenuBar(menuBar);
  
-        // Center-Panel, worin alle Panel kommen
+        // Center-Panel, worin alle externe Panels kommen
         JPanel pa_center = new JPanel(); 
 
         // GUI Zusammensetzen
@@ -93,7 +92,7 @@ public class GuiStart {
         return panel4.getSubject();
     }
      
-     public String getSendTimeText() {
+     public Calendar getSendTimeText() {
         return panel3.getSendTimeText();
     }
      
@@ -118,13 +117,11 @@ public class GuiStart {
     }
     
     public Collection<String> getPicturePath() {
-        
         Collection tempcol;
         ArrayList<String> tempprinter = new ArrayList<String>();
         tempprinter.add(panel5.getPP());
         tempcol = tempprinter;
         return tempcol;
-        
     }
 
 

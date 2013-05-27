@@ -7,6 +7,7 @@ package multichannel.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import multichannel.business.Contact;
@@ -61,10 +62,26 @@ public class ButtonAddContact extends JButton implements ActionListener {
         pane.createDialog(null, "Neuer Kontakt").setVisible(true);
 
         // Neuer Kontakt in die Liste aufnehmen
-        //printer.getText() fehtl
-
+        if(maingui.getContactList().ErrorParser(name.getText(), phone.getText(), email.getText(), printer.getText())){
+ // printer.getText() fehlt
         maingui.getContactList().createNewContact(name.getText(), phone.getText(), email.getText(), null);
 
         return maingui.getContactList().getByName(name.getText());
+        } else {
+        PopUpErrorContact();
+        return null;
+        }
+        
     }
+    
+    
+    private void PopUpErrorContact() {
+        JFrame msgframe = new JFrame();
+        JOptionPane.showMessageDialog(msgframe,
+                "Kontakt wurde nicht erstellt!\n"
+                + "Ein Kontakt muss mindestens einen Namen sowie E-Mail, Nummer oder Drucker haben",
+                "Kontakt erstellen fehlgeschlagen",
+                JOptionPane.WARNING_MESSAGE);
+    }
+
 }
