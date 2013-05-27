@@ -20,12 +20,24 @@ public class Sms extends Message {
     }
 
     @Override
-    public boolean send() {
-        Collection<String> numbers = super.getNumbers();
-        for(String number : numbers){
-            System.out.print(this);
+    public String pack(){
+        String to = "";
+        String eol = System.getProperty("line.separator");
+        for(Contact recipient : super.getRecipients()){
+            to += recipient.getName();
+            to += " <";
+            to += recipient.getPhone();
+            to += "> ";
         }
-        return true;
+        Contact sender = super.getSender();
+        String from = sender.getName() + " <" + sender.getPhone() + ">";
+        String packedMessage = "===============================================" + eol
+                + "FORM: " + from + eol
+                + "TO: " + to + eol
+                + "===============================================" + eol
+                + super.getText() + eol
+                + "===============================================" + eol + eol + eol;
+        return packedMessage;
     }
     
     

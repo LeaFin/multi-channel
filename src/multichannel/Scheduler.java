@@ -4,7 +4,6 @@
  */
 package multichannel;
 
-import multichannel.business.Printer;
 import multichannel.business.MessageQueueManager;
 import multichannel.business.CalendarImport;
 import multichannel.business.QueueChecker;
@@ -53,13 +52,12 @@ public class Scheduler extends Timer{
         ContactList contactList = ContactList.deserializeContacts();
         Contact owener = null;
         if (contactList.getContacts().isEmpty()){
-            owener = contactList.createNewContact("Owener", "076 238 19 38", "abc@gmail.com", new Printer("name", "addresse"));
+            owener = contactList.createNewContact("Owener", "0762381938", "abc@gmail.com", "192.168.0.3");
         }
         else{
             owener = contactList.getContacts().get(0);
         }
         Scheduler scheduler = new Scheduler(contactList);
-        contactList = ContactList.deserializeContacts();
         MessageQueueManager messageQueue = scheduler.getQueueManager();
         messageQueue.setOwener(owener);
         TimerTask queueChecker = scheduler.getQueueChecker();
@@ -71,9 +69,10 @@ public class Scheduler extends Timer{
         // Kalenderimport starten
         CalendarImport calendarImport = (CalendarImport)scheduler.getCalendarImport();
         calendarImport.addCalendar(System.getProperty("user.dir") + "/testimport.ics");
-        scheduler.schedule(queueChecker, 0, 60000);
         scheduler.schedule(calendarImport, 0, 600000);
-
+        
+        //queueChecker starten
+        scheduler.schedule(queueChecker, 0, 20000);
     }
     
 }

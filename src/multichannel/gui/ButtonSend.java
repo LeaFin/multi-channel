@@ -82,7 +82,9 @@ public class ButtonSend extends JButton implements ActionListener {
         Collection<Contact> con = new ArrayList<Contact>();
         for (int i = 0; i < panel1.getContactList().getSize(); i++) {
             Contact contact = (Contact) panel1.getContactList().get(i);
-            con.add(contact);
+            if (contact != null){
+                con.add(contact);
+            }
         }
         return con;
     }

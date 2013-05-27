@@ -85,8 +85,8 @@ public abstract class Message {
         return numbers;
     }
     
-    public Collection<Printer> getPrinters() {
-        Collection<Printer> printers = new ArrayList<Printer>();
+    public Collection<String> getPrinters() {
+        Collection<String> printers = new ArrayList<String>();
         for (Contact recipient: recipients){
             printers.add(recipient.getPrinter());
         }
@@ -100,6 +100,27 @@ public abstract class Message {
         return true;
     }
     
-    public abstract boolean send();
+    public boolean send(){
+        Class<? extends Message> klass = this.getClass();
+        klass.cast(this);
+        String klassName = klass.getSimpleName();
+        Collection<String> addresses;
+        if (klassName.equals("Sms") || klassName.equals("MMS")){
+            addresses = getNumbers();
+        }
+        else if(klassName.equals("Email")){
+            addresses = getContactEmails();
+        }
+        else {
+            addresses = getPrinters();
+        }
+        String packedMessage = pack();
+        for(String addresse: addresses){
+            System.out.println(klass.getName() + " sent to: " + addresse);
+            System.out.println(packedMessage);
+        }
+        return true;
+    };
+    public abstract String pack();
     public abstract boolean validate() throws Exception;
 }

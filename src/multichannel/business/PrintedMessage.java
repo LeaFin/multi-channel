@@ -30,18 +30,6 @@ public class PrintedMessage extends Message implements ImageAddable {
     }
 
     @Override
-    public boolean send() {
-        Collection<Printer> printers = super.getPrinters();
-        for (Printer printer: printers){
-            String addresse = printer.getAddresse();
-            /*TODO print out all content*/
-        }
-        
-        return false;
-        
-    }
-
-    @Override
     public boolean addImage(String path) {
         BufferedImage img;
         try{
@@ -68,7 +56,7 @@ public class PrintedMessage extends Message implements ImageAddable {
         super.validateRecipients();
     
         // Check for correct Printer of each Contact
-        for (Printer printer : super.getPrinters()){
+        for (String printer : super.getPrinters()){
             // RegEx selfmade... i dont know what to check for a printer... it check now something like this: \\Server1\PrinterName
             // naja klapped noned... regex macht no ken sinn...
           //  if (! printer.matches("((\\){2})\w*(\\){1}\w*")){
@@ -77,6 +65,27 @@ public class PrintedMessage extends Message implements ImageAddable {
         }
         return true;
     }
-   
-    
+
+    @Override
+    public String pack() {
+        String to = "";
+        String eol = System.getProperty("line.separator");
+        for(Contact recipient : super.getRecipients()){
+            to += recipient.getName();
+            to += " <";
+            to += recipient.getEmail();
+            to += "> ";
+        }
+        Contact sender = super.getSender();
+        String from = sender.getName() + " <" + sender.getEmail() + ">";
+        String packedMessage = "===============================================" + eol
+                + "FORM: " + from + eol
+                + "TO: " + to + eol
+                + "SUBJECT: " + subject + eol
+                + "===============================================" + eol
+                + super.getText() + eol
+                + images + eol
+                + "===============================================" + eol + eol + eol;
+        return packedMessage;
+    }
 }

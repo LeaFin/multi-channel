@@ -48,22 +48,12 @@ public class Email extends Message implements ImageAddable {
     public static void addToInstances(Email email){
         instances.put(email.getUid(), email);
     }
-
-    @Override
-    public boolean send() {
-        Collection<String> emailAddresses = super.getContactEmails();
-        String packedMessage = pack();
-        for(String emailAddresse: emailAddresses){
-            System.out.println("Message sent to: "+ emailAddresse);
-            System.out.println(packedMessage);
-        }
-        return true;
-    }
     
     /**
      * 
      * @return String packedMessage, representing the header and content of mail.
      */
+    @Override
     public String pack() {
         // TODO: bilder ausgeben.
         String to = "";
@@ -82,6 +72,7 @@ public class Email extends Message implements ImageAddable {
                 + "SUBJECT: " + subject + eol
                 + "===============================================" + eol
                 + super.getText() + eol
+                + encodedImages + eol
                 + "===============================================" + eol + eol + eol;
         return packedMessage;
     }

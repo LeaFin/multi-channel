@@ -45,7 +45,7 @@ public class ContactList implements Serializable {
     
     }
             
-    public Contact createNewContact(String name, String phone, String email, Printer printer){
+    public Contact createNewContact(String name, String phone, String email, String printer){
         Contact newContact = new Contact(name, phone, email, printer);
         contacts.add(newContact);
         return newContact;

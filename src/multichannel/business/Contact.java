@@ -15,9 +15,9 @@ public class Contact implements Serializable {
     private String name;
     private String phone;
     private String email;
-    private Printer printer;
+    private String printer;
     
-    public Contact(String name, String phone, String email, Printer printer){
+    public Contact(String name, String phone, String email, String printer){
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -36,7 +36,7 @@ public class Contact implements Serializable {
         this.phone = phone;
     }
 
-    public void setPrinter(Printer printer) {
+    public void setPrinter(String printer) {
         this.printer = printer;
     }
 
@@ -52,7 +52,7 @@ public class Contact implements Serializable {
         return phone;
     }
 
-    public Printer getPrinter() {
+    public String getPrinter() {
         return printer;
     }
     

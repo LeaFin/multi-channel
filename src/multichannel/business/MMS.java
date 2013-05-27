@@ -30,15 +30,28 @@ public class MMS extends Message implements ImageAddable {
         images = new ArrayList<Image>();
         this.subject = subject;
     }
-
+    
     @Override
-    public boolean send() {
-        Collection<String> numbers = super.getNumbers();
-        /* TODO send for each recipient */
-        for(String number: numbers){
-            System.out.print(this);
+    public String pack(){
+        String to = "";
+        String eol = System.getProperty("line.separator");
+        for(Contact recipient : super.getRecipients()){
+            to += recipient.getName();
+            to += " <";
+            to += recipient.getPhone();
+            to += "> ";
         }
-        return true;
+        Contact sender = super.getSender();
+        String from = sender.getName() + " <" + sender.getPhone() + ">";
+        String packedMessage = "===============================================" + eol
+                + "FORM: " + from + eol
+                + "TO: " + to + eol
+                + "SUBJECT: " + subject + eol
+                + "===============================================" + eol
+                + super.getText() + eol
+                + images + eol
+                + "===============================================" + eol + eol + eol;
+        return packedMessage;
     }
 
     @Override

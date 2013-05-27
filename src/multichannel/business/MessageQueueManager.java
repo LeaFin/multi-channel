@@ -204,14 +204,9 @@ public void createEmail(Collection<Contact> recipients, String text,
         while (messages.hasNext()){
             Message message = messages.next();
             if (message.getSendTime().compareTo(now) <= 0){
-                try {
-                    boolean sent = sendMessage(message);
-                    if (sent){
-                        messages.remove();
-                    }
-                }
-                catch (NoFittingSubclassException e){
-                    System.out.println(e.getMessage());
+                boolean sent = sendMessage(message);
+                if (sent){
+                    messages.remove();
                 }
             }
         }
@@ -226,20 +221,14 @@ public void createEmail(Collection<Contact> recipients, String text,
      * @return Retruns true if the message is sent, false if an error ocured.
      * @throws NoFittingSubclassException, if none of the isInstance checks returns true.
      */
-    public boolean sendMessage(Message message) throws NoFittingSubclassException {
-        for (Class<? extends Message> klass : Message.getMessageTypes()){
-            if (klass.isInstance(message)){
-                klass.cast(message);
-                try {
-                    message.send();
-                    return true;
-                }
-                catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    return false;
-                }
-            }
+    public boolean sendMessage(Message message){
+        try {
+            message.send();
+            return true;
         }
-        throw new NoFittingSubclassException();
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }
