@@ -98,7 +98,8 @@ public class GuiStart {
     }
      
      public MessageQueueManager getMessageQueueManager() {
-        return scheduler.getQueueManager();
+         CalendarImport calImport = (CalendarImport)scheduler.getCalendarImport();
+         return calImport.getQueueManager();
     }
 
     public void setPicturePath(String labelpicturepath) {

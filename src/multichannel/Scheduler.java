@@ -19,14 +19,12 @@ import multichannel.gui.GuiStart;
  */
 public class Scheduler extends Timer{
      
-    private MessageQueueManager queueManager;
     private TimerTask calendarImport;
     private TimerTask queueChecker;
     
     public Scheduler(){
-        queueManager = new MessageQueueManager();
-        calendarImport = new CalendarImport(queueManager);
-        queueChecker = new QueueChecker(queueManager);
+        calendarImport = new CalendarImport();
+        queueChecker = new QueueChecker();
     }
 
     public TimerTask getCalendarImport() {
@@ -35,10 +33,6 @@ public class Scheduler extends Timer{
 
     public TimerTask getQueueChecker() {
         return queueChecker;
-    }
-
-    public MessageQueueManager getQueueManager() {
-        return queueManager;
     }
     
     // main methode must be in here to use Timer.
@@ -52,9 +46,8 @@ public class Scheduler extends Timer{
             owener = contactList.getContacts().get(0);
         }
         Scheduler scheduler = new Scheduler();
-        MessageQueueManager messageQueue = scheduler.getQueueManager();
-        messageQueue.setOwener(owener);
-        TimerTask queueChecker = scheduler.getQueueChecker();
+        MessageQueueManager queueManager = new MessageQueueManager();
+        queueManager.setOwener(owener);
         
         // GUI zeichnen
         GuiStart mcgui = new GuiStart(scheduler);
@@ -63,10 +56,13 @@ public class Scheduler extends Timer{
         // Kalenderimport starten
         CalendarImport calendarImport = (CalendarImport)scheduler.getCalendarImport();
         calendarImport.setContactList(contactList);
+        calendarImport.setQueueManager(queueManager);
         calendarImport.addCalendar(System.getProperty("user.dir") + "/testimport.ics");
         scheduler.schedule(calendarImport, 0, 600000);
         
         //queueChecker starten
+        QueueChecker queueChecker = (QueueChecker)scheduler.getQueueChecker();
+        queueChecker.setQueueManager(queueManager);
         scheduler.schedule(queueChecker, 0, 20000);
     }
     

@@ -13,8 +13,8 @@ import java.util.TimerTask;
 public class QueueChecker extends TimerTask {
     
     private MessageQueueManager queueManager;
-    
-    public QueueChecker(MessageQueueManager queueManager){
+
+    public void setQueueManager(MessageQueueManager queueManager) {
         this.queueManager = queueManager;
     }
 
