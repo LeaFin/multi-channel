@@ -1,12 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -14,12 +8,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.LineBorder;
 
 /**
  *
  * @author Stephan
+ * 
+ * Generatess the Panel with all Components for the Text in a Message.
  */
 public class PanelTextforMessage extends JPanel {
 
@@ -63,18 +57,35 @@ public class PanelTextforMessage extends JPanel {
 
     }
 
+    /**
+     * Returns the Messagetext
+     * @return String
+     */
     public String getMessage() {
         return txtareamessage.getText();
     }
 
+    /**
+     * Returns the subject
+     * @return String
+     */
     public String getSubject() {
         return txtsubject.getText();
     }
 
+    /**
+     * Set a info who is displayed under "Nachricht:"
+     * @param text
+     */
     public void setMessageInfo(String text) {
         labelmessageinfo.setText(text);
     }
 
+    /**
+     * Set visibility of the Subject. SMS had no Subject.
+     * true=Visible
+     * @param truefalse
+     */
     public void setVisibility(boolean truefalse) {
         txtsubject.setVisible(truefalse);
     }

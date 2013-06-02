@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
 import java.awt.Dimension;
@@ -13,6 +9,9 @@ import javax.swing.JPanel;
 /**
  *
  * @author Stephan
+ * 
+ * The panel with subject and Message.
+ * 
  */
 public class PanelMessageTyp extends JPanel {
 

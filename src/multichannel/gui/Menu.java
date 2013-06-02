@@ -1,25 +1,22 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import multichannel.business.Contact;
 
 /**
  *
  * @author Stephan
+ * 
+ * Generates the whole Menü for the Mainframe.
+ * 
+ * 
  */
 public class Menu extends JMenuBar implements ActionListener {
 

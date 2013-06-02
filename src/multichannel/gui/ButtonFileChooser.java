@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
 import java.awt.event.ActionEvent;
@@ -17,6 +13,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author Stephan
+ * 
+ * Adds Button "Bild auswählen"
+ * 
+ * Adds a Path to a Picture.
+ * 
+ * All other methods and Dialogs included in this class
+ * 
  */
 public class ButtonFileChooser extends JButton implements ActionListener {
 

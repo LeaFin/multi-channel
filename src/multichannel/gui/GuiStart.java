@@ -15,6 +15,15 @@ import multichannel.business.CalendarImport;
 import multichannel.business.ContactList;
 import multichannel.business.MessageQueueManager;
 
+/**
+ *
+ * @author Stephan
+ * 
+ * Generates Mainframe. Adds all Panels.
+ * 
+ * Helps to interact between all Panels. 
+ * 
+ */
 public class GuiStart {
     
     // Hauptframe
@@ -33,11 +42,22 @@ public class GuiStart {
     PanelTextforMessage panel4 = new PanelTextforMessage(); 
     PanelAddImage panel5 = new PanelAddImage(this);
       
+    /**
+     *
+     * Den Schedeuler im System übergeben.
+     * 
+     * @param scheduler
+     */
     public GuiStart(Scheduler scheduler) {
         // Übergabe Scheduler
         this.scheduler = scheduler;
     }
     
+    /**
+     * Erstellt das gesamte GUI.
+     * 
+     * Alle Koponenten zusammenfügen etc.
+     */
     public void creategui() {
         
         
@@ -73,6 +93,16 @@ public class GuiStart {
 
     }
 
+    /**
+     *
+     * Setzt den Sendetyp und blendet entsprechend Optionen aus die nicht benötigt werde. 
+     * Die Asublendungen sind statisch direkt festgesetzt.
+     * 
+     * 1 = Multimedia
+     * 2 = SMS
+     * 
+     * @param sendtyp 
+     */
     public void setSendTyp(int sendtyp) {
         this.sendtyp = sendtyp;
         
@@ -87,48 +117,109 @@ public class GuiStart {
         }
     } 
     
-      public int getSendTyp() {
+     /**
+     *
+     * Sendetyp abfragen.
+     * 
+     * 1 = Multimedia
+     * 2 = SMS
+     * 
+     * @return
+     */
+    public int getSendTyp() {
         return this.sendtyp;
     }
 
+    /**
+     * Mainframe übergeben
+     * 
+     * Wird z.B benötigt um Methoden aufzurfen, z.B bei der Klasse Button.
+     * 
+     * @return JFrame
+     */
     public JFrame getFrame() {
         return this.frame;
     }
     
-     public String getMessageText() {
+     /**
+     *
+     * Textnachricht lesen
+     * 
+     * @return String
+     */
+    public String getMessageText() {
         return panel4.getMessage();
     }
      
+    /**
+     *
+     *  Returns the subject
+     * 
+     * @return String
+     */
     public String getSubjectText() {
         return panel4.getSubject();
     }
      
-     public Calendar getSendTimeText() {
+     /**
+     * 
+     *  Returns the choosen Date
+     * 
+     * @return Calendar
+     */
+    public Calendar getSendTimeText() {
         return panel3.getSendTimeText();
     }
      
-     public MessageQueueManager getMessageQueueManager() {
+     /**
+     *
+     * Returns the MessageQueueManager.
+     * 
+     * Needed for new Messages.
+     * 
+     * @return MessageQueueManager
+     */
+    public MessageQueueManager getMessageQueueManager() {
          CalendarImport calImport = (CalendarImport)scheduler.getCalendarImport();
          return calImport.getQueueManager();
     }
 
+    /**
+     *
+     * Set the path to a Picture
+     * 
+     * @param labelpicturepath
+     */
     public void setPicturePath(String labelpicturepath) {
         this.inputVerzStr = labelpicturepath;
     }
 
-    /*
+
+    /**
      * Returns the Picture-Path as a String
+     * @return String
      */
     public String getInputVerzStr() {
         return this.inputVerzStr;
     }
 
 
+    /**
+     * Returns List with all Contacts.
+     * 
+     * @return ContactList
+     */
     public ContactList getContactList() {
         CalendarImport calImport = (CalendarImport)scheduler.getCalendarImport();
         return calImport.getContactList();
     }
     
+    /**
+     *
+     * Returns the choosen pictures
+     * 
+     * @return Collection<String>
+     */
     public Collection<String> getPicturePath() {
         Collection<String> tempcol = new ArrayList<String>();
         String picturePath = panel5.getPP();

@@ -6,7 +6,6 @@ package multichannel.business;
 
 import multichannel.exception.NoContactException;
 import multichannel.exception.NoSuchUIDException;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

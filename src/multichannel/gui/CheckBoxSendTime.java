@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
 import java.awt.event.ActionEvent;
@@ -12,6 +8,9 @@ import javax.swing.JCheckBox;
 /**
  *
  * @author Stephan
+ * 
+ * Adds a checkbox with the 4 Message-Typs
+ * 
  */
 public class CheckBoxSendTime extends JCheckBox implements ActionListener {
 
@@ -20,11 +19,8 @@ public class CheckBoxSendTime extends JCheckBox implements ActionListener {
     public CheckBoxSendTime(PanelSendTime panel3) {
 
         this.panel3 = panel3;
-
         setText("Später senden?");
-
         addActionListener(this);
-        //addActionListener(actionListener);
 
     }
 

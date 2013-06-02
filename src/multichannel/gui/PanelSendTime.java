@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
 import java.awt.Dimension;
@@ -17,6 +13,9 @@ import javax.swing.JPanel;
 /**
  *
  * @author Stephan
+ * 
+ * Generates the Panel for the Sendtime.
+ * 
  */
 public class PanelSendTime extends JPanel {
 
@@ -58,6 +57,11 @@ public class PanelSendTime extends JPanel {
         add(buttonsendtime);
     }
 
+    /**
+     * Set the Sendtime from the Datepicker.
+     * 
+     * @param sendtime
+     */
     public void setSendTimeText(Calendar sendtime) {
         this.sendtime = sendtime;
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -65,11 +69,21 @@ public class PanelSendTime extends JPanel {
         
     }
     
+    /**
+     * Returns the choosen sendtime
+     * @return Calendar
+     */
     public Calendar getSendTimeText() {
         return this.sendtime;
     }
     
 
+    /**
+     * Set Visibility of the Datepicker-Button and the sendtime.
+     * true=Visible
+     * 
+     * @param tf
+     */
     public void setElementsVisible(boolean tf){
     labelsendtime.setVisible(tf);
     textsendtime.setVisible(tf);

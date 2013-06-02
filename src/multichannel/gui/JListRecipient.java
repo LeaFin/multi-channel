@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
 import java.awt.Dimension;
@@ -10,12 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ToolTipManager;
 
 /**
  *
+ * Liste für die Empfänger.
+ * 
  * @author Stephan
  */
 public class JListRecipient extends JList {
@@ -23,6 +20,13 @@ public class JListRecipient extends JList {
     JList recipientlist;
     DefaultListModel defaultListModel;
 
+    /**
+     * Generates a List with a Scrollbar.
+     * 
+     * Needs a defaultListModel who handels all Contacts.
+     * 
+     * @param defaultListModel
+     */
     public JListRecipient(final DefaultListModel defaultListModel) {
 
         this.defaultListModel = defaultListModel;

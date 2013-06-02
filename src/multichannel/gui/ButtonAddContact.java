@@ -13,9 +13,17 @@ import javax.swing.JTextField;
 import multichannel.business.Contact;
 import multichannel.exception.NoContactException;
 
+
 /**
  *
  * @author Stephan
+ * 
+ * Adds Button "Neuer Empfänger"
+ * 
+ * New Contacts are direkt handled with the JList.
+ * 
+ * All other methods and Dialogs included in this class
+ * 
  */
 public class ButtonAddContact extends JButton implements ActionListener {
 
@@ -32,6 +40,11 @@ public class ButtonAddContact extends JButton implements ActionListener {
         addActionListener(this);
     }
 
+     /**
+     * 
+     * Button hit = new OptionPane for a new contact.
+     * 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
@@ -48,6 +61,14 @@ public class ButtonAddContact extends JButton implements ActionListener {
 
     }
 
+    /**
+     * Create a new Contact. A OptionPane appears if the Button hit.
+     * 
+     * 
+     * @return Generated Contact
+     * 
+     * @throws NoContactException
+     */
     public Contact createcontact() throws NoContactException {
 
         // Erstellung Array vom Datentyp Object, Hinzufügen der
@@ -66,7 +87,7 @@ public class ButtonAddContact extends JButton implements ActionListener {
 
         // Neuer Kontakt in die Liste aufnehmen
         if(maingui.getContactList().ErrorParser(name.getText(), phone.getText(), email.getText(), printer.getText())){
- // printer.getText() fehlt
+        // printer.getText() fehlt
         maingui.getContactList().createNewContact(name.getText(), phone.getText(), email.getText(), null);
 
         return maingui.getContactList().getByName(name.getText());
@@ -77,7 +98,9 @@ public class ButtonAddContact extends JButton implements ActionListener {
         
     }
     
-    
+     /**
+     * Error Dialog
+     */
     private void PopUpErrorContact() {
         JFrame msgframe = new JFrame();
         JOptionPane.showMessageDialog(msgframe,

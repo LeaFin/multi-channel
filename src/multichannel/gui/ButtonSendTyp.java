@@ -1,11 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
@@ -13,13 +7,22 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 /**
- *
  * @author Stephan
+ * 
+ * Adds a checkbox with the 4 Message-Typs Mail, MMS, SMS, Printer
+ * 
+ * Set the choosen Typ direkt in the Maingui.
+ * 
  */
 public class ButtonSendTyp extends JPanel implements ActionListener {
 
     GuiStart maingui;
             
+    /**
+     * Generates the radiobuttons with the Sendtyps.
+     * Needs the maingui to set the choosen type.
+     * @param maingui
+     */
     public ButtonSendTyp(GuiStart maingui) {
 
         this.maingui = maingui;

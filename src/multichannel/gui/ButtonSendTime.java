@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
 import java.awt.event.ActionEvent;
@@ -13,6 +9,8 @@ import javax.swing.JButton;
 /**
  *
  * @author Stephan
+ * 
+ * Generates the Button to choose the sendtime
  */
 public class ButtonSendTime extends JButton {
 

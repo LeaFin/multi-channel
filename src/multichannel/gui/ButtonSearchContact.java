@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
 import java.awt.event.ActionEvent;
@@ -16,6 +12,13 @@ import multichannel.exception.NoContactException;
 /**
  *
  * @author Stephan
+ * 
+ * Adds Button "Adressbuch durchsuchen"
+ * 
+ * Founded contacts are direkt handled with the JList.
+ * 
+ * All other methods and Dialogs included in this class
+ * 
  */
 public class ButtonSearchContact extends JButton implements ActionListener {
 

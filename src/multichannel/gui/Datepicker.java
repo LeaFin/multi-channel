@@ -12,6 +12,11 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+    /**
+     * Opens a new Frame who you can choose a Date.
+     * 
+     * Returns a Calendar date.
+     */
 final class Datepicker {
 
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
@@ -77,6 +82,7 @@ final class Datepicker {
         datedialog.setVisible(true);
     }
 
+
     public void displayDate() {
         for (int x = 7; x < button.length; x++) {
             button[x].setText("");
@@ -95,7 +101,12 @@ final class Datepicker {
         l.setText(sdf.format(cal.getTime()));
         datedialog.setTitle("Date Picker");
     }
-
+    
+    /**
+     * Returns the choosen date.
+     * 
+     * @return Calendar
+     */
     public Calendar setPickedDate() {
         if (day.equals("")) //	return day;
         {

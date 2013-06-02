@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
 import java.awt.Dimension;
@@ -18,12 +14,22 @@ import multichannel.business.Contact;
 /**
  *
  * @author Stephan
+ * 
+ * Generates the control-panel with the Send-Button and the whole receptions handling.
+ * 
  */
 public class PanelControl extends JPanel {
 
     DefaultListModel defaultListModel;
     
 
+    /**
+     * Generates the panel with all buttons etc.
+     * 
+     * Needs the maingui for the Methods in the mainframe.
+     * 
+     * @param maingui
+     */
     public PanelControl(GuiStart maingui) {
         
         JPanel panelbuttonsend = new JPanel();
@@ -71,10 +77,19 @@ public class PanelControl extends JPanel {
     
     
     
+    /**
+     * Adds a new contact in the datalist for the JList contact-List.
+     * 
+     * @param newcontact
+     */
     public void addContact(Contact newcontact) {
         defaultListModel.addElement(newcontact);
     }
 
+    /**
+     * Returns the datalist for the JList contact-List.
+     * @return
+     */
     public DefaultListModel getContactList() {
         return defaultListModel;
     }

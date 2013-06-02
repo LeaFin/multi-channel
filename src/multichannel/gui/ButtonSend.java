@@ -1,16 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,12 +13,24 @@ import multichannel.business.Contact;
 /**
  *
  * @author Stephan
+ *
+ * Generiert den "Sende"-Button
+ *
+ * Beinhaltet alle notwendigen routinen um eine Nachricht zu versenden
+ *
  */
 public class ButtonSend extends JButton implements ActionListener {
 
     GuiStart maingui;
     PanelControl panel1;
 
+    /**
+     * Generiert den button. Die Gesamte interaktionen finden via dem Maingui statt und dessen Methoden.
+     * Benötigt auch das PanelControl da dort die Kontakte verwaltet werden.
+     * 
+     * @param panel1
+     * @param maingui
+     */
     public ButtonSend(PanelControl panel1, GuiStart maingui) {
 
         this.maingui = maingui;
@@ -56,33 +61,12 @@ public class ButtonSend extends JButton implements ActionListener {
 
     }
 
-    /*
-    private Calendar convertDate() {
-        Calendar cldr = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-        if (!"sofort".equals(maingui.getSendTimeText())) {
-            try {
-                cldr.setTime(sdf.parse(maingui.getSendTimeText()));
-                System.out.println("Time set to: " + cldr.getTime());
-                return cldr;
-            } catch (ParseException e1) {
-                System.out.println(e1.getMessage());
-            }
-        } else {
-            System.out.println("Time set to: " + cldr.getTime());
-            return cldr;
-        }
-
-        return cldr;
-    }
-*/
     private Collection<Contact> convertContact() {
         // Umwandeln der contactlist ins das Format Collection
         Collection<Contact> con = new ArrayList<Contact>();
         for (int i = 0; i < panel1.getContactList().getSize(); i++) {
             Contact contact = (Contact) panel1.getContactList().get(i);
-            if (contact != null){
+            if (contact != null) {
                 con.add(contact);
             }
         }
