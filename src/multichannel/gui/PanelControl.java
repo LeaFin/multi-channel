@@ -41,7 +41,9 @@ public class PanelControl extends JPanel {
         //Empfängerliste
         defaultListModel = new DefaultListModel();
         JListRecipient recipientlist = new JListRecipient(defaultListModel);
-
+        JScrollPane scroller = new JScrollPane(recipientlist);
+        scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
        
         JButton buttonsend = new ButtonSend(this, maingui);
         JButton buttonadd = new ButtonAddContact(this, maingui);
@@ -56,7 +58,7 @@ public class PanelControl extends JPanel {
         
         panelreciever.setLayout(new BoxLayout(panelreciever, BoxLayout.PAGE_AXIS));
         panelreciever.add(labelto);
-        panelreciever.add(new JScrollPane(recipientlist));
+        panelreciever.add(scroller);
         panelreciever.add(labeltoerr);
                 
         pannelbuttonrcv.setLayout(new BoxLayout(pannelbuttonrcv, BoxLayout.PAGE_AXIS));

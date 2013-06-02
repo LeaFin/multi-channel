@@ -16,13 +16,14 @@ import javax.swing.JPanel;
 public class PanelAddImage extends JPanel {
     
     JLabel labelpicturepath, labelpicture;
+    JButton buttonfilechooser;
     
     public PanelAddImage(GuiStart maingui){
 
         labelpicture = new JLabel("  Bild");
         labelpicturepath = new JLabel();
 
-        JButton buttonfilechooser = new ButtonFileChooser(this, maingui); // Create a
+        buttonfilechooser = new ButtonFileChooser(this, maingui); // Create a
 
         setLayout(new FlowLayout(FlowLayout.LEFT));
         add(labelpicture);
@@ -39,4 +40,10 @@ public class PanelAddImage extends JPanel {
         return labelpicturepath.getText();
     }
     
+    public void setVisibility(boolean truefalse){
+        buttonfilechooser.setVisible(truefalse);
+        labelpicture.setVisible(truefalse);
+        labelpicturepath.setVisible(truefalse);
+    }
+   
 }

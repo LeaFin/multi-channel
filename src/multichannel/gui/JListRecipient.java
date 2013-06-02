@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ToolTipManager;
 
@@ -35,7 +36,8 @@ public class JListRecipient extends JList {
 
         setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         // grösse definieren
-        setMinimumSize(new Dimension( 200, 80 ));
+        setSize(new Dimension( 100, 100 ));
+        
 
         // 5 Kontakte Anzeigen
         setVisibleRowCount(5); 

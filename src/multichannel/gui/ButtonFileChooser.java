@@ -11,6 +11,8 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -43,14 +45,20 @@ public class ButtonFileChooser extends JButton implements ActionListener {
 
     public String filepicerframe() {
 
-        final JFileChooser chooser = new JFileChooser("Verzeichnis wählen");
-        chooser.setDialogType(JFileChooser.OPEN_DIALOG);
-        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        final JFileChooser fileChooser = new JFileChooser("Verzeichnis wählen");
+        fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         final File file = new File("/home");
 
-        chooser.setCurrentDirectory(file);
+        fileChooser.setCurrentDirectory(file);
 
-        chooser.addPropertyChangeListener(new PropertyChangeListener() {
+        // Alle Dateien ausblenden
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        // Dateifilter setzen auf nur Bilder
+        FileFilter filter = new FileNameExtensionFilter("Bilder", "jpg", "jpeg", "gif", "png");
+        fileChooser.addChoosableFileFilter(filter);
+ 
+        fileChooser.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent e) {
                 if (e.getPropertyName().equals(
@@ -62,16 +70,16 @@ public class ButtonFileChooser extends JButton implements ActionListener {
             }
         });
 
-        chooser.setVisible(true);
-        final int result = chooser.showOpenDialog(null);
+        fileChooser.setVisible(true);
+        final int result = fileChooser.showOpenDialog(null);
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            File inputVerzFile = chooser.getSelectedFile();
+            File inputVerzFile = fileChooser.getSelectedFile();
             String inputVerzStr = inputVerzFile.getPath();
             // System.out.println("Eingabepfad:" + inputVerzStr);
             return inputVerzStr;
         }
-        chooser.setVisible(false);
+        fileChooser.setVisible(false);
         return "";
     }
 }

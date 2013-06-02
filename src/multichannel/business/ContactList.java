@@ -24,7 +24,7 @@ public class ContactList implements Serializable {
     
     
     /**
-     * Checks the new Contact. Minimum a Name with an Phonenumber, E-MAil Adress or Printer is needed 
+     * Checks the new Contact. Minimum a Name with an Phonenumber, E-Mail Adress or Printer is needed 
      * 
      * @param name
      * @param phone

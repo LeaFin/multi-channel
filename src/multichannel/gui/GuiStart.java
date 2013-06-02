@@ -75,6 +75,16 @@ public class GuiStart {
 
     public void setSendTyp(int sendtyp) {
         this.sendtyp = sendtyp;
+        
+        if (this.sendtyp == 2){
+            panel5.setVisibility(false);
+            panel4.setVisibility(false);
+            panel4.setMessageInfo("Maximal 160 Zeichen!");
+        } else {
+            panel5.setVisibility(true);
+            panel4.setVisibility(true);
+            panel4.setMessageInfo("");
+        }
     } 
     
       public int getSendTyp() {
