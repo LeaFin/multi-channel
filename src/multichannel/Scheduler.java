@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel;
 
 import multichannel.business.MessageQueueManager;
@@ -35,12 +31,19 @@ public class Scheduler extends Timer{
         return queueChecker;
     }
     
-    // main methode must be in here to use Timer.
+    /**
+     * Sets up the message queue
+     * Deserializes the ContactList
+     * Initializes the GUI
+     * Creating a Scheduler instance to handle the timer tasks
+     * Sets up the timertasks CalenderImport and QueueChecker
+     * @param args
+     */
     public static void main(String[] args){
         ContactList contactList = ContactList.deserializeContacts();
         Contact owener = null;
         if (contactList.getContacts().isEmpty()){
-            owener = contactList.createNewContact("Owener", "0762381938", "abc@gmail.com", "192.168.0.3");
+            owener = contactList.createNewContact("Leandra", "0762381938", "mail@gmail.com", "5667");
         }
         else{
             owener = contactList.getContacts().get(0);

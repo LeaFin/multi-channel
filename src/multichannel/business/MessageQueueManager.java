@@ -47,18 +47,20 @@ public class MessageQueueManager {
      * 
      * @param recipients
      * @param text
+     * @param subject 
      * @param images
-     * @param sendTime 
+     * @param sendTime
+     * @param uid
      */
-public void createEmail(Collection<Contact> recipients, String text,
-           String subject, Collection<String> images, Calendar sendTime){
-        UUID uuid = UUID.randomUUID();
-        String uid = uuid.toString();
-        createEmail(recipients, text, subject, images, sendTime, uid);
-}
-   
+    
     public void createEmail(Collection<Contact> recipients, String text, 
                             String subject, Collection<String> images, Calendar sendTime, String uid){
+       
+        if (uid.trim().isEmpty()){
+            UUID uuid = UUID.randomUUID();
+            uid = uuid.toString();
+        }
+       
        Email email = new Email(recipients, text, subject, sendTime, uid);
        Email.addToInstances(email);
        String response = "";
@@ -164,6 +166,7 @@ public void createEmail(Collection<Contact> recipients, String text,
      * 
      * @param recipients
      * @param text
+     * @param subject 
      * @param images
      * @param sendTime 
      */
@@ -196,7 +199,6 @@ public void createEmail(Collection<Contact> recipients, String text,
      *This method checks each messeage in the Queue, if it's sendTime is before the actual time.
      * If it is, the methode, which tells the message to send itself is called.
      * And if that was successful the message is getting removed from the queue.
-     * TODO: check if it was successful!
      */
     public void getSendableMessages(){
         Calendar now = Calendar.getInstance();
@@ -219,7 +221,6 @@ public void createEmail(Collection<Contact> recipients, String text,
      * 
      * @param message The Message object which shoud be sent.
      * @return Retruns true if the message is sent, false if an error ocured.
-     * @throws NoFittingSubclassException, if none of the isInstance checks returns true.
      */
     public boolean sendMessage(Message message){
         try {

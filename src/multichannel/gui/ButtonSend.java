@@ -105,7 +105,7 @@ public class ButtonSend extends JButton implements ActionListener {
             // Hier wird die Multimedia-Nachricht erstellt im QueeManager
             // Wie kann man response abfangen und ausgeben?
             if (maingui.getSendTyp() == 1) {
-                maingui.getMessageQueueManager().createEmail(convertContact(), maingui.getMessageText(), maingui.getSubjectText(), maingui.getPicturePath(), maingui.getSendTimeText());
+                maingui.getMessageQueueManager().createEmail(convertContact(), maingui.getMessageText(), maingui.getSubjectText(), maingui.getPicturePath(), maingui.getSendTimeText(), "");
             }
             if (maingui.getSendTyp() == 3) {
                 maingui.getMessageQueueManager().createMMS(convertContact(), maingui.getMessageText(), maingui.getSubjectText(), maingui.getPicturePath(), maingui.getSendTimeText());

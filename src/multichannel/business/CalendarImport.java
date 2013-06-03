@@ -34,10 +34,18 @@ public class CalendarImport extends TimerTask {
     private Lock lock = new ReentrantLock();
     private ContactList contactList;
     
+    /**
+     * CalenderImport needs a ContatctList, to add the right recipients.
+     * @param contactList
+     */
     public void setContactList(ContactList contactList){
         this.contactList = contactList;
     }
 
+    /**
+     * The CalenderImport needs a MessageQueueManager to place the reminder mails.
+     * @param queueManager
+     */
     public void setQueueManager(MessageQueueManager queueManager) {
         this.queueManager = queueManager;
     }
@@ -50,10 +58,20 @@ public class CalendarImport extends TimerTask {
         return contactList;
     }
 
+    /**
+     * Adds a new calendar file to check for events.
+     * The Calender File must be in ical standard. Such as .ics
+     * The path can be absolute to the root or relative, to the program's folder.
+     * @param path
+     */
     public void addCalendar(String path){
         calendars.add(path);
     }
     
+    /**
+     * The methot run starts the timed import. Thanks to the Lock, there can't
+     * be more then on thread in the import method.
+     */
     @Override
     public void run() {
         System.out.println("CalendarImport statet.");
@@ -66,6 +84,12 @@ public class CalendarImport extends TimerTask {
         }
     }
     
+    /**
+     * Reads the file from each calendar and calls the parseCalender method,
+     * with the importedCalendar Strings.
+     * With the parseCalendar's retur creates the reminder mails useing the 
+     * createReminder method.
+     */
     private void importFromCalendar(){
         Calendar now = Calendar.getInstance();
         for (String calendar : calendars) {
@@ -91,6 +115,12 @@ public class CalendarImport extends TimerTask {
         System.out.println("CalendarImport ist beendet.");
     }
     
+    /**
+     * Parses the given String with lot of REGEX.
+     * And returns an ArrayList of with the needed data to send the reminder mails.
+     * @return ArrayList<HashMap>, each Map contains the parameters to create or 
+     * update one mail.
+     */
     private ArrayList<HashMap> parseCalendar(String cal){
         String[] events = cal.split("(BEGIN:VEVENT)");
         ArrayList<HashMap> mails = new ArrayList<HashMap>();
@@ -204,6 +234,10 @@ public class CalendarImport extends TimerTask {
         return mails;
     }
     
+     /**
+     * Updates the reminder email if it already exists, else creates a new one.
+     * @param mail, a HashMap containing the parameters for a mail.
+     */
     private void createReminder(HashMap mail){
         String uid = (String) mail.get("uid");
         Collection<Contact> recipients = (Collection<Contact>) mail.get("recipients");
