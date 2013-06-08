@@ -6,6 +6,7 @@ package multichannel;
 
 import multichannel.business.Contact;
 import multichannel.business.ContactList;
+import multichannel.exception.ContactInvalidException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,13 +20,13 @@ public class ContactListTest {
 
     static Contact testcontact1, testcontact2;
     static String name1, phone1, email1, printer1, name2, phone2, email2, printer2;
-    static ContactList instance;
+    static ContactList contacts;
 
     public ContactListTest() {
     }
 
     @BeforeClass
-    public static void setUpClass() {
+    public static void setUpClass() throws ContactInvalidException {
 
         name1 = "Stephan";
         phone1 = "0774565252";
@@ -37,10 +38,10 @@ public class ContactListTest {
         email2 = "leandra@finger.ch";
         printer2 = "\\\\Print05\\Printtestleandra";
 
-        instance = new ContactList();
+        contacts = new ContactList();
 
-        testcontact1 = instance.createNewContact(name1, phone1, email1, printer1);
-        testcontact2 = instance.createNewContact(name2, phone2, email2, printer2);
+        testcontact1 = contacts.createNewContact(name1, phone1, email1, printer1);
+        testcontact2 = contacts.createNewContact(name2, phone2, email2, printer2);
     }
 
     @AfterClass
@@ -48,34 +49,30 @@ public class ContactListTest {
     }
 
     /**
-     * Test of ErrorParser method, of class ContactList.
+     * Test error when invalid contact gets created.
+     * Contact with the same name already exists.
      */
-    @Test
-    public void testErrorParser() {
-        System.out.println("Test  Contact ErrorParser");
-
-        boolean expResult = true;
-        boolean result = instance.ErrorParser(name1, phone1, email1, printer1);
-
-        assertEquals(expResult, result);
-
-        // Auf false testen
-        String name = "Stephan";
-        String phone = "";
-        String email = "";
-        String printer = "";
-
-        expResult = false;
-        result = instance.ErrorParser(name, phone, email, printer);
-
-        assertEquals(expResult, result);
+    @Test (expected=ContactInvalidException.class)
+    public void testContactValidationNameDuplication() throws ContactInvalidException {
+        System.out.println("Test ContactValidation");
+        contacts.createNewContact(name1, phone1, email1, printer1);
+    }
+    
+    /**
+     * Test error when invalid contact gets created.
+     * Just name defined
+     */
+    @Test (expected=ContactInvalidException.class)
+    public void testContactValidationNotEnoughInfo() throws ContactInvalidException {
+        System.out.println("Test ContactValidation");
+        contacts.createNewContact("NAME", "", "", "");
     }
 
     /**
      * Test of createNewContact method, of class ContactList.
      */
     @Test
-    public void testCreateNewContact() {
+    public void testCreateNewContact() throws ContactInvalidException {
         System.out.println("createNewContact");
         String name = "Stephan";
         String phone = "0774565252";
@@ -132,7 +129,7 @@ public class ContactListTest {
         System.out.println("getContacts");
 
         int expResult = 2;
-        int result = instance.getContacts().size();
+        int result = contacts.getContacts().size();
 
         assertEquals(expResult, result);
 

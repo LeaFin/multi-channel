@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import multichannel.exception.NoContactException;
+import multichannel.exception.ContactInvalidException;
 
 /**
  *
@@ -24,7 +25,8 @@ public class ContactList implements Serializable {
     
     
     /**
-     * Checks the new Contact. Minimum a Name with an Phonenumber, E-Mail Adress or Printer is needed 
+     * Checks the new Contact. Minimum a Name with an Phonenumber, E-Mail Adress or Printer is needed.
+     * There can't be two contacts with the same name.
      * 
      * @param name
      * @param phone
@@ -32,25 +34,50 @@ public class ContactList implements Serializable {
      * @param printer
      * @return true or false
      */
-    public boolean ErrorParser(String name,String phone,String email,String printer){
+    public boolean validateContact(String name,String phone,String email,String printer){
         
-        if(name.isEmpty()){
+        if(name.isEmpty() || (phone.isEmpty() && email.isEmpty() && printer.isEmpty())){
+            System.out.println("You need to add at least one contact information and name");
             return false;
         }
-        if(phone.isEmpty() && email.isEmpty() && printer.isEmpty()){
+        
+        try{
+            getByName(name);
+            System.out.println("You can't have 2 contacts with the same name.");
             return false;
         }
- 
-        return true;
-    
+        catch (NoContactException e){
+            return true;
+        }
     }
             
-    public Contact createNewContact(String name, String phone, String email, String printer){
-        Contact newContact = new Contact(name, phone, email, printer);
-        contacts.add(newContact);
-        return newContact;
+    /**
+     * Calling the Contact constructor and adding the new Contact to the list.
+     * @param name
+     * @param phone
+     * @param email
+     * @param printer
+     * @return Contact
+     * @throws ContactInvalidException
+     */
+    public Contact createNewContact(String name, String phone, String email, String printer) throws ContactInvalidException{
+        boolean valid = validateContact(name, phone, email, printer);
+        if (valid){
+            Contact newContact = new Contact(name, phone, email, printer);
+            contacts.add(newContact);
+            return newContact;
+        }
+        else {
+            throw new ContactInvalidException();
+        }
     }
     
+    /**
+     * Returns the contact with fitting name if, none thorws an NoContactException.
+     * @param name
+     * @return
+     * @throws NoContactException
+     */
     public Contact getByName(String name) throws NoContactException{
         for (Contact contact: contacts){
             if (contact.getName().equals(name)){
