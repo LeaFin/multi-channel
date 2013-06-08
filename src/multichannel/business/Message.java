@@ -38,7 +38,7 @@ public abstract class Message {
      * Getter for the sender of all Messages.
      * Is a class method, cause the messagequeue has one owener.
      * And all messages are belonging to him.
-     * @return
+     * @return Contact, sender of all messages
      */
     public static Contact getSender() {
         return sender;
@@ -64,7 +64,7 @@ public abstract class Message {
 
     /**
      * Getter for the Recipients of a Message.
-     * @return
+     * @return recipient list of the message
      */
     public Collection<Contact> getRecipients() {
         return recipients;
@@ -72,7 +72,7 @@ public abstract class Message {
 
     /**
      * Getter for the Text of a Message
-     * @return
+     * @return text of the message
      */
     public String getText() {
         return text;
@@ -80,7 +80,7 @@ public abstract class Message {
 
     /**
      * Getter for the send time of a message.
-     * @return
+     * @return send time of the message
      */
     public Calendar getSendTime() {
         return sendTime;

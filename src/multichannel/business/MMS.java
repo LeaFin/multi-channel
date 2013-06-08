@@ -31,7 +31,7 @@ public class MMS extends Message implements ImageAddable {
     /**
      * Get's all needed information, which must be sent within an mms.
      * Putting them together in a nice representation.
-     * @return
+     * @return Message representation as string
      */
     @Override
     public String pack(){
@@ -60,7 +60,7 @@ public class MMS extends Message implements ImageAddable {
      * Adds an image to the mms.
      * If it is to wide, it'll be scaled down. so it can be sent.
      * @param path
-     * @return
+     * @return boolean, true if adding was successful
      */
     @Override
     public boolean addImage(String path) {

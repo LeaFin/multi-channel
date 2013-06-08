@@ -76,7 +76,7 @@ public class ContactList implements Serializable {
     /**
      * Returns the contact with fitting name, if none thorws an NoContactException.
      * @param name
-     * @return
+     * @return Contact, asked for
      * @throws NoContactException
      */
     public Contact getByName(String name) throws NoContactException{
@@ -104,7 +104,7 @@ public class ContactList implements Serializable {
     /**
      * Returns the contact with fitting email, if none thorws an NoContactException.
      * @param email
-     * @return
+     * @return Contact, asked for
      * @throws NoContactException
      */
     public Contact getByEmail(String email) throws NoContactException{

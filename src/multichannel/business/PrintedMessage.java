@@ -29,7 +29,7 @@ public class PrintedMessage extends Message implements ImageAddable {
     /**
      * Adding an image to the images of a PrintedMessage.
      * @param path
-     * @return
+     * @return boolean true when adding was successful
      */
     @Override
     public boolean addImage(String path) {
@@ -67,7 +67,7 @@ public class PrintedMessage extends Message implements ImageAddable {
     /**
      * Returns a nice representation of a printet message.
      * Which is printed when the message gets sent.
-     * @return
+     * @return Message representation as string
      */
     @Override
     public String pack() {

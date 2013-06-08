@@ -18,7 +18,7 @@ public class Sms extends Message {
     /**
      * Collecting all information which need to be sent.
      * And arranging them for a print.
-     * @return
+     * @return Message representation as string
      */
     @Override
     public String pack(){

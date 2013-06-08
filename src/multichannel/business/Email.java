@@ -42,7 +42,7 @@ public class Email extends Message implements ImageAddable {
      * As input it takes the id of the wished email.
      * If the uid isn't existing in the map, a NoSuchUIDException is thrown.
      * @param uid
-     * @return
+     * @return Email object asked for
      * @throws NoSuchUIDException
      */
     public static Email getByUid(String uid) throws NoSuchUIDException{
@@ -100,7 +100,7 @@ public class Email extends Message implements ImageAddable {
      * The image is added as base64 string, as it is usual for an appended image
      * in a email.
      * @param path
-     * @return
+     * @return boolean, true if adding was successful
      */
     @Override
     public boolean addImage(String path) {
@@ -156,7 +156,7 @@ public class Email extends Message implements ImageAddable {
 
     /**
      * Getter method for the uid of an email.
-     * @return
+     * @return uid as string
      */
     public String getUid() {
         return uid;
