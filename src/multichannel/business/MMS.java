@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package multichannel.business;
 
 import java.awt.Image;
@@ -16,7 +13,7 @@ import java.util.Collection;
 import javax.imageio.ImageIO;
 
 /**
- *
+ * Subclass of Message
  * @author leandrafinger
  */
 public class MMS extends Message implements ImageAddable {
@@ -31,6 +28,11 @@ public class MMS extends Message implements ImageAddable {
         this.subject = subject;
     }
     
+    /**
+     * Get's all needed information, which must be sent within an mms.
+     * Putting them together in a nice representation.
+     * @return
+     */
     @Override
     public String pack(){
         String to = "";
@@ -54,6 +56,12 @@ public class MMS extends Message implements ImageAddable {
         return packedMessage;
     }
 
+    /**
+     * Adds an image to the mms.
+     * If it is to wide, it'll be scaled down. so it can be sent.
+     * @param path
+     * @return
+     */
     @Override
     public boolean addImage(String path) {
         BufferedImage img;
@@ -63,7 +71,7 @@ public class MMS extends Message implements ImageAddable {
             System.out.println("Your image couldn't be added.");
             return false;
         }
-        if (validateImage(img)) {
+        if (validateImageSize(img)) {
             images.add(img);
         }
         else {
@@ -73,7 +81,12 @@ public class MMS extends Message implements ImageAddable {
         return true;
     }
 
-    public boolean validateImage(BufferedImage img) {
+    /**
+     * Checking if an image has the allowed size.
+     * @param img
+     * @return boolean
+     */
+    public boolean validateImageSize(BufferedImage img) {
         if (img.getWidth() <= 160){
             return true;
         }

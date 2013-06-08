@@ -52,7 +52,8 @@ public class ContactList implements Serializable {
     }
             
     /**
-     * Calling the Contact constructor and adding the new Contact to the list.
+     * Calling the Contact constructor if parameters are valid and adding the new Contact to the list.
+     * If input isn't valid thorws ContactInvalidException.
      * @param name
      * @param phone
      * @param email
@@ -73,7 +74,7 @@ public class ContactList implements Serializable {
     }
     
     /**
-     * Returns the contact with fitting name if, none thorws an NoContactException.
+     * Returns the contact with fitting name, if none thorws an NoContactException.
      * @param name
      * @return
      * @throws NoContactException
@@ -100,6 +101,12 @@ public class ContactList implements Serializable {
         return output;
     }
     
+    /**
+     * Returns the contact with fitting email, if none thorws an NoContactException.
+     * @param email
+     * @return
+     * @throws NoContactException
+     */
     public Contact getByEmail(String email) throws NoContactException{
         for (Contact contact: contacts){
             if (contact.getEmail().equals(email)){
@@ -109,7 +116,11 @@ public class ContactList implements Serializable {
         throw new NoContactException();
     }
     
-        public void serializeContacts(){
+    /**
+     *  Serializes the contactlist to the file Contacts.ser.
+     *  So with a new program start all contacts will be loaded again.
+     */
+    public void serializeContacts(){
         try {
             FileOutputStream fileStream = new FileOutputStream("Contacts.ser");
             ObjectOutputStream os = new ObjectOutputStream(fileStream);
@@ -121,6 +132,11 @@ public class ContactList implements Serializable {
         }
     }
     
+    
+    /**
+     *  Deserializes the contactlist from file Contacts.ser.
+     *  This method is called, when the program gets started.
+     */
     public static ContactList deserializeContacts(){
         FileInputStream fileStream;
         ContactList obj = null;

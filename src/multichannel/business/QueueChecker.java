@@ -7,7 +7,7 @@ package multichannel.business;
 import java.util.TimerTask;
 
 /**
- *
+ * A timer Task to tell the messageQueue to check if there are Messages to send.
  * @author leandrafinger
  */
 public class QueueChecker extends TimerTask {

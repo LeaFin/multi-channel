@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package multichannel.business;
 
 import multichannel.exception.NoValidPrinterException;
@@ -15,7 +12,7 @@ import java.util.Collection;
 import javax.imageio.ImageIO;
 
 /**
- *
+ * Subclass of Message
  * @author leandrafinger
  */
 public class PrintedMessage extends Message implements ImageAddable {
@@ -29,6 +26,11 @@ public class PrintedMessage extends Message implements ImageAddable {
         this.subject = subject;
     }
 
+    /**
+     * Adding an image to the images of a PrintedMessage.
+     * @param path
+     * @return
+     */
     @Override
     public boolean addImage(String path) {
         BufferedImage img;
@@ -52,20 +54,21 @@ public class PrintedMessage extends Message implements ImageAddable {
      */
     @Override
     public boolean validate() throws NoRecipientsException, NoValidPrinterException {
-        // Check if any Recipient given
         super.validateRecipients();
-    
-        // Check for correct Printer of each Contact
-        for (String printer : super.getPrinters()){
-            // RegEx selfmade... i dont know what to check for a printer... it check now something like this: \\Server1\PrinterName
-            // naja klapped noned... regex macht no ken sinn...
-          //  if (! printer.matches("((\\){2})\w*(\\){1}\w*")){
-           //     throw new NoValidPrinterException(printer);
-           // }
+            for (String printer : super.getPrinters()){
+          
+          if (! printer.matches("[\\]{4}\\w*[\\]{2}\\w*")){
+            throw new NoValidPrinterException(printer);
+          }
         }
         return true;
     }
 
+    /**
+     * Returns a nice representation of a printet message.
+     * Which is printed when the message gets sent.
+     * @return
+     */
     @Override
     public String pack() {
         String to = "";

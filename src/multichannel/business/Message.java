@@ -6,13 +6,11 @@ package multichannel.business;
 
 import multichannel.exception.NoRecipientsException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.List;
 
 /**
- *
+ * SuperClass of Email, Sms, MMS, PrintedMessage
  * @author leandrafinger
  */
 public abstract class Message {
@@ -28,34 +26,70 @@ public abstract class Message {
         this.sendTime = sendTime;
     }
 
+    /**
+     * Setter for the recipients of a Message.
+     * @param recipients
+     */
     public void setRecipients(Collection<Contact> recipients) {
         this.recipients = recipients;
     }
 
+    /**
+     * Getter for the sender of all Messages.
+     * Is a class method, cause the messagequeue has one owener.
+     * And all messages are belonging to him.
+     * @return
+     */
     public static Contact getSender() {
         return sender;
     }
     
+    /**
+     * Setter for the Sender of all Messages.
+     * Is a class method, cause the messagequeue has one owener.
+     * And all messages are belonging to him.
+     * @param sender
+     */
     public static void setSender(Contact sender){
         Message.sender = sender;
     }
     
+    /**
+     * Setter for the Text of a Message.
+     * @param text
+     */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * Getter for the Recipients of a Message.
+     * @return
+     */
     public Collection<Contact> getRecipients() {
         return recipients;
     }
 
+    /**
+     * Getter for the Text of a Message
+     * @return
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     * Getter for the send time of a message.
+     * @return
+     */
     public Calendar getSendTime() {
         return sendTime;
     }
 
+    /**
+     * setter for the sendtime of a message.
+     * @param sendTime
+     */
     public void setSendTime(Calendar sendTime) {
         this.sendTime = sendTime;
     }

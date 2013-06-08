@@ -5,7 +5,7 @@
 package multichannel.business;
 
 /**
- *
+ * An interface to make sure a class implements the method addImage.
  * @author leandrafinger
  */
 public interface ImageAddable {

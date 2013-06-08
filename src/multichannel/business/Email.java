@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package multichannel.business;
 
 import multichannel.exception.NoValidEmailException;
@@ -20,7 +17,7 @@ import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
 
 /**
- * 
+ * Subclass of Message
  *
  * @author leandrafinger
  */
@@ -36,8 +33,18 @@ public class Email extends Message implements ImageAddable {
         this.subject = subject;
         encodedImages = new ArrayList<String>();
         this.uid = uid;
+        addToInstances(this);
     }
     
+    /**
+     * All emails are stored in a HashMap with an id as key.
+     * With this class method it's possible to get one specific email.
+     * As input it takes the id of the wished email.
+     * If the uid isn't existing in the map, a NoSuchUIDException is thrown.
+     * @param uid
+     * @return
+     * @throws NoSuchUIDException
+     */
     public static Email getByUid(String uid) throws NoSuchUIDException{
         if(instances.containsKey(uid)){
             return instances.get(uid);
@@ -45,17 +52,22 @@ public class Email extends Message implements ImageAddable {
         throw new NoSuchUIDException();
     }
     
+    /**
+     * Classmethod to add an email to the HashMap.
+     * Is called when a new email object is created.
+     * @param email
+     */
     public static void addToInstances(Email email){
         instances.put(email.getUid(), email);
     }
     
     /**
+     * This method costructs the representation of an email, when it is sent.
      * 
      * @return String packedMessage, representing the header and content of mail.
      */
     @Override
     public String pack() {
-        // TODO: bilder ausgeben.
         String to = "";
         String eol = System.getProperty("line.separator");
         for(Contact recipient : super.getRecipients()){
@@ -67,12 +79,13 @@ public class Email extends Message implements ImageAddable {
         Contact sender = super.getSender();
         String from = sender.getName() + " <" + sender.getEmail() + ">";
         String packedMessage = "===============================================" + eol
+                + "Appended images: " + encodedImages + eol
+                + "===============================================" + eol
                 + "FORM: " + from + eol
                 + "TO: " + to + eol
                 + "SUBJECT: " + subject + eol
                 + "===============================================" + eol
                 + super.getText() + eol
-                + encodedImages + eol
                 + "===============================================" + eol + eol + eol;
         return packedMessage;
     }
@@ -82,6 +95,13 @@ public class Email extends Message implements ImageAddable {
         return "Email: " + subject;
     }
 
+    /**
+     * Adds an image to the images list.
+     * The image is added as base64 string, as it is usual for an appended image
+     * in a email.
+     * @param path
+     * @return
+     */
     @Override
     public boolean addImage(String path) {
         BufferedImage img;
@@ -98,7 +118,8 @@ public class Email extends Message implements ImageAddable {
     }
     
     /**
-     * Don't know if it works yet.
+     * This method is called when an image gets added.
+     * It take's the buffered image as input and returns an base64 encoded image
      * @param img
      * @return String representing the image, base64 encoded.
      * @throws IOException
@@ -133,10 +154,19 @@ public class Email extends Message implements ImageAddable {
         return true;
     }
 
+    /**
+     * Getter method for the uid of an email.
+     * @return
+     */
     public String getUid() {
         return uid;
     }
 
+    /**
+     * Setter method for the suject.
+     * Is used when an event in the imported calendar chaned.
+     * @param subject
+     */
     public void setSubject(String subject) {
         this.subject = subject;
     }

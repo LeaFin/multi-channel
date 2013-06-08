@@ -6,7 +6,6 @@ package multichannel.business;
 
 import multichannel.exception.NoValidEmailException;
 import multichannel.exception.NoValidPrinterException;
-import multichannel.exception.NoFittingSubclassException;
 import multichannel.exception.NoRecipientsException;
 import multichannel.exception.NoValidNumberException;
 import java.util.ArrayList;
@@ -62,7 +61,6 @@ public class MessageQueueManager {
         }
        
        Email email = new Email(recipients, text, subject, sendTime, uid);
-       Email.addToInstances(email);
        String response = "";
        try {
            boolean is_valid = email.validate();

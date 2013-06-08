@@ -7,6 +7,7 @@ import multichannel.business.Contact;
 import java.util.Timer;
 import java.util.TimerTask;
 import multichannel.business.ContactList;
+import multichannel.exception.ContactInvalidException;
 import multichannel.gui.GuiStart;
 
 /**
@@ -39,11 +40,11 @@ public class Scheduler extends Timer{
      * Sets up the timertasks CalenderImport and QueueChecker
      * @param args
      */
-    public static void main(String[] args){
+    public static void main(String[] args) throws ContactInvalidException{
         ContactList contactList = ContactList.deserializeContacts();
         Contact owener = null;
         if (contactList.getContacts().isEmpty()){
-            owener = contactList.createNewContact("Leandra", "0762381938", "mail@gmail.com", "5667");
+            owener = contactList.createNewContact("Owener", "0762381938", "owener@gmail.com", "\\\\OwenersServer\\OwnersPrinter");
         }
         else{
             owener = contactList.getContacts().get(0);

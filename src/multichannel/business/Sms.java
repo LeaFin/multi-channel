@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.business;
 
 import multichannel.exception.NoRecipientsException;
@@ -10,7 +6,7 @@ import java.util.Calendar;
 import java.util.Collection;
 
 /**
- *
+ * Subclass of Message
  * @author leandrafinger
  */
 public class Sms extends Message {
@@ -19,6 +15,11 @@ public class Sms extends Message {
         super(recipients, text, sendTime);
     }
 
+    /**
+     * Collecting all information which need to be sent.
+     * And arranging them for a print.
+     * @return
+     */
     @Override
     public String pack(){
         String to = "";
