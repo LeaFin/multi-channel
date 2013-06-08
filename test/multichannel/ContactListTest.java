@@ -114,12 +114,12 @@ public class ContactListTest {
         String email = "sz@zii.ch";
         String printer = "\\\\Print03\\Printtest";
 
-        ContactList instance = new ContactList();
+        ContactList myContacts = new ContactList();
 
-        Contact testcontact = instance.createNewContact(name, phone, email, printer);
+        Contact testcontact = myContacts.createNewContact(name, phone, email, printer);
 
         String expResult = name;
-        String result = instance.getByName(name).getName();
+        String result = myContacts.getByName(name).getName();
         assertEquals(expResult, result);
 
     }
