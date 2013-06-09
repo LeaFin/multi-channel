@@ -6,6 +6,7 @@ import multichannel.exception.NoRecipientsException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -15,7 +16,7 @@ import javax.imageio.ImageIO;
  * Subclass of Message
  * @author leandrafinger
  */
-public class PrintedMessage extends Message implements ImageAddable {
+public class PrintedMessage extends Message implements ImageAddable, Serializable {
     
     private Collection<BufferedImage> images;
     private String subject;

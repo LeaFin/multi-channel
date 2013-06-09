@@ -2,6 +2,9 @@ package multichannel.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -62,7 +65,18 @@ public class GuiStart {
         
         
         // Frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        // Listener on close
+        WindowListener exitListener = new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                   GuiStart.this.getMessageQueueManager().serializeMessages();
+                   System.exit(0);
+            }
+        };
+        frame.addWindowListener(exitListener);
 
         // Hinzufügen von Menü-Leiste
         JMenuBar menuBar = new Menu(this);

@@ -50,7 +50,7 @@ public class Scheduler extends Timer{
             owener = contactList.getContacts().get(0);
         }
         Scheduler scheduler = new Scheduler();
-        MessageQueueManager queueManager = new MessageQueueManager();
+        MessageQueueManager queueManager = MessageQueueManager.deserializeMessages();
         queueManager.setOwener(owener);
         
         // GUI zeichnen

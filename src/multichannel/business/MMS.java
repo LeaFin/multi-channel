@@ -7,6 +7,7 @@ import multichannel.exception.NoValidNumberException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -16,7 +17,7 @@ import javax.imageio.ImageIO;
  * Subclass of Message
  * @author leandrafinger
  */
-public class MMS extends Message implements ImageAddable {
+public class MMS extends Message implements ImageAddable, Serializable {
     
     private Collection<Image> images;
     private String subject;

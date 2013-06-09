@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -21,7 +22,7 @@ import org.apache.commons.codec.binary.Base64;
  *
  * @author leandrafinger
  */
-public class Email extends Message implements ImageAddable {
+public class Email extends Message implements ImageAddable, Serializable {
     
     private String subject;
     private List<String> encodedImages;

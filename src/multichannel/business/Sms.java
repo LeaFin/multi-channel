@@ -1,5 +1,6 @@
 package multichannel.business;
 
+import java.io.Serializable;
 import multichannel.exception.NoRecipientsException;
 import multichannel.exception.NoValidNumberException;
 import java.util.Calendar;
@@ -9,7 +10,7 @@ import java.util.Collection;
  * Subclass of Message
  * @author leandrafinger
  */
-public class Sms extends Message {
+public class Sms extends Message implements Serializable {
     
     public Sms(Collection<Contact> recipients, String text, Calendar sendTime){
         super(recipients, text, sendTime);

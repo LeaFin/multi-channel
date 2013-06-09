@@ -4,6 +4,12 @@
  */
 package multichannel.business;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import multichannel.exception.NoValidEmailException;
 import multichannel.exception.NoValidPrinterException;
 import multichannel.exception.NoRecipientsException;
@@ -18,7 +24,7 @@ import java.util.UUID;
  *
  * @author leandrafinger
  */
-public class MessageQueueManager {
+public class MessageQueueManager implements Serializable {
     
    private Collection<Message> messageQueue;
    private Contact owener;
@@ -229,5 +235,44 @@ public class MessageQueueManager {
             System.out.println(e.getMessage());
             return false;
         }
+    }
+    
+    /**
+     *  Serializes the messageQueue to the file Messages.ser.
+     *  So with a new program start all messagess will be loaded again.
+     */
+    public void serializeMessages(){
+        try {
+            FileOutputStream fileStream = new FileOutputStream("Messages.ser");
+            ObjectOutputStream os = new ObjectOutputStream(fileStream);
+            os.writeObject(this);
+            os.close();
+        }
+        catch (Exception e) {
+            System.out.println("Messages can't be saved.");
+        }
+    }
+    
+    
+    /**
+     *  Deserializes the MessageQueueManager from file Messages.ser.
+     *  This method is called, when the program gets started.
+     */
+    public static MessageQueueManager deserializeMessages(){
+        FileInputStream fileStream;
+        MessageQueueManager obj = null;
+        try {
+            fileStream = new FileInputStream("Messages.ser");
+            ObjectInputStream is = new ObjectInputStream(fileStream);
+            obj = (MessageQueueManager)is.readObject();
+            is.close();
+        }
+        catch (FileNotFoundException fnf){
+            return new MessageQueueManager();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return obj;
     }
 }

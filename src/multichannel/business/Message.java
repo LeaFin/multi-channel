@@ -4,6 +4,7 @@
  */
 package multichannel.business;
 
+import java.io.Serializable;
 import multichannel.exception.NoRecipientsException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,7 +14,7 @@ import java.util.Collection;
  * SuperClass of Email, Sms, MMS, PrintedMessage
  * @author leandrafinger
  */
-public abstract class Message {
+public abstract class Message implements Serializable {
     
     private Collection<Contact> recipients;
     private String text;
