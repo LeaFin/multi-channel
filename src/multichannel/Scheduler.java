@@ -51,7 +51,6 @@ public class Scheduler extends Timer{
         }
         Scheduler scheduler = new Scheduler();
         MessageQueueManager queueManager = MessageQueueManager.deserializeMessages();
-        System.out.println(queueManager.getLastImport());
         queueManager.setOwener(owener);
         
         // GUI zeichnen
