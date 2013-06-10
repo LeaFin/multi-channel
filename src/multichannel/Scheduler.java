@@ -61,7 +61,7 @@ public class Scheduler extends Timer{
         CalendarImport calendarImport = (CalendarImport)scheduler.getCalendarImport();
         calendarImport.setContactList(contactList);
         calendarImport.setQueueManager(queueManager);
-        calendarImport.addCalendar(System.getProperty("user.dir") + "/testimport.ics");
+        calendarImport.addCalendar("kalenderimport.ics");
         scheduler.schedule(calendarImport, 0, 600000);
         
         //queueChecker starten
