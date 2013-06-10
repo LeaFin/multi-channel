@@ -109,8 +109,7 @@ public class Menu extends JMenuBar implements ActionListener {
 
 
         if (command.equals("Exit")) {
-            maingui.getMessageQueueManager().serializeMessages();
-            System.exit(0);
+            maingui.serializeAndExit();
         }
 
 

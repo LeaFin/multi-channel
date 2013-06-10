@@ -18,16 +18,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.TreeSet;
 import java.util.UUID;
 
 /**
- *
+ * This class is handling the messages from creating till sending.
  * @author leandrafinger
  */
 public class MessageQueueManager implements Serializable {
     
    private Collection<Message> messageQueue;
    private Contact owener;
+   private Calendar lastImport = Calendar.getInstance();
    
    /**
     * Constructor, creating the ArrayList in which all Messages, which are ready
@@ -44,6 +46,14 @@ public class MessageQueueManager implements Serializable {
 
     public Contact getOwener() {
         return owener;
+    }
+    
+    public void setLastImport(Calendar lastImport){
+        this.lastImport = lastImport;
+    }
+
+    public Calendar getLastImport() {
+        return lastImport;
     }
    
     /**

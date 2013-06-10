@@ -72,8 +72,7 @@ public class GuiStart {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                   GuiStart.this.getMessageQueueManager().serializeMessages();
-                   System.exit(0);
+                 serializeAndExit();
             }
         };
         frame.addWindowListener(exitListener);
@@ -242,7 +241,12 @@ public class GuiStart {
         }
         return tempcol;
     }
-
+    
+    public void serializeAndExit(){
+       getMessageQueueManager().serializeMessages();
+       getContactList().serializeContacts();
+       System.exit(0);
+    }
 
     
 }

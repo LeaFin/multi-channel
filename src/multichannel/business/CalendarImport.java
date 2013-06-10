@@ -16,11 +16,13 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.TimerTask;
+import java.util.TreeSet;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import multichannel.Scheduler;
+import multichannel.exception.ContactInvalidException;
 
 /**
  *
@@ -29,7 +31,6 @@ import multichannel.Scheduler;
 public class CalendarImport extends TimerTask {
     
     private ArrayList<String> calendars = new ArrayList<String>();
-    private Calendar lastImport = Calendar.getInstance();
     private MessageQueueManager queueManager;
     private Lock lock = new ReentrantLock();
     private ContactList contactList;
@@ -74,7 +75,7 @@ public class CalendarImport extends TimerTask {
      */
     @Override
     public void run() {
-        System.out.println("CalendarImport statet.");
+        System.out.println("CalendarImport started.");
         if(lock.tryLock()){
             importFromCalendar();
             lock.unlock();
@@ -111,8 +112,8 @@ public class CalendarImport extends TimerTask {
                 Logger.getLogger(Scheduler.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        lastImport = now;
-        System.out.println("CalendarImport ist beendet.");
+        queueManager.setLastImport(now);
+        System.out.println("CalendarImport finished.");
     }
     
     /**
@@ -139,7 +140,7 @@ public class CalendarImport extends TimerTask {
             int[] dateInt = parseTime(lastModString);
             lastMod.set(dateInt[0], dateInt[1], dateInt[2], dateInt[3], dateInt[4], dateInt[5]);
             
-            if (lastMod.compareTo(lastImport) <= 0 ){
+            if (lastMod.compareTo(queueManager.getLastImport()) > 0 ){
                 event = event.replaceAll("BEGIN:VALARM(.*?)END:VALARM", "");
                 ArrayList<HashMap> contacts = new ArrayList<HashMap>();
                 
@@ -149,86 +150,95 @@ public class CalendarImport extends TimerTask {
                 
                 String uid = event.replace("(.*)(UID:)(.*?)(NewLine)(.*)", "$3");
                 mail.put("uid", uid);
-                
+
                 for (String contact: contactStrings){
                     if (contact.isEmpty()){
                         continue;
                     }
                     HashMap<String, String> contactData = new HashMap<String, String>();
-                    
+
                     if (contact.matches(".*CN.*")){
                         contactData.put("name", contact.replaceFirst("(.*)(.*CN=)(.*?)(;.*)", "$3"));
                     }
-                   
+
                     if (contact.matches(".*mailto.*")){
                         contactData.put("email", contact.replaceFirst("(.*mailto:)([\\w.%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4})", "$2"));
                     }
                     contacts.add(contactData);
                 }
-                
+
                 ArrayList<Contact> recipients = new ArrayList<Contact>();
-                
+
                 for (HashMap contactData: contacts){
+                    Contact c = null;
                     try {
-                        Contact c = contactList.getByName((String)contactData.get("name"));
-                        recipients.add(c);
+                        c = contactList.getByName((String)contactData.get("name"));
                     }
                     catch (NoContactException ex) {
                         try {
-                            Contact c = contactList.getByEmail((String)contactData.get("email"));
-                            recipients.add(c);
+                            c = contactList.getByEmail((String)contactData.get("email"));
                         }
                         catch (NoContactException e) {
                             if (!contactData.isEmpty()){
-                                System.out.println(contactData + "does not exist in your Contacts.");
+                                try {
+                                    String name = (String)contactData.get("name");
+                                    String email = (String)contactData.get("email");
+                                    if (name!=null && email!=null){
+                                        c = contactList.createNewContact(name, "", email, "");
+                                    }
+                                } catch (ContactInvalidException ex1) {
+                                    System.out.println(contactData + "couldn't be added to your Contacts.");
+                                }
                             }
                         }
                     }
+                    if (c != null){
+                        recipients.add(c);
+                    }
                 }
-                
+
                 mail.put("recipients", recipients);
-                
+
                 /*Get start and end Date*/
-                
+
                 String startDateString = event.replaceFirst("(.*)(DTSTART[^0-9]*:)(.*?)(NewLine)(.*)", "$3");
                 int[] dateStartInt = parseTime(startDateString);
                 Calendar startDate = Calendar.getInstance();
                 startDate.set(dateStartInt[0], dateStartInt[1], dateStartInt[2], dateStartInt[3], dateStartInt[4], dateStartInt[5]);
-                
+
                 String endDateString = event.replaceFirst("(.*)(DTEND[^0-9]*:)(.*?)(NewLine)(.*)", "$3");
                 int[] dateEndInt = parseTime(startDateString);
                 Calendar endDate = Calendar.getInstance();
                 endDate.set(dateEndInt[0], dateEndInt[1], dateEndInt[2], dateEndInt[3], dateEndInt[4], dateEndInt[5]);
-                
+
                 /* sendTime */
-                
+
                 Calendar sendTime = (Calendar) startDate.clone();
                 sendTime.add(Calendar.DAY_OF_MONTH, -1);
-                
+
                 mail.put("sendTime", sendTime);
-                
+
                 /*Get Summary*/
-                
+
                 String summary = event.replaceFirst("(.*)(SUMMARY:)(.*?)(NewLine)(.*)", "$3");
-                
+
                 mail.put("summary", summary);
-                
+
                 /*Get description */
-                
+
                 String description = event.replaceFirst("(.*)(DESCRIPTION:)(.*?)(NewLine)(.*)", "$3");
-                
+
                 /* make message */
                 SimpleDateFormat sdf = new SimpleDateFormat("EEE, yyyy-MM-dd HH:mm:ss");
                 String eol = System.getProperty("line.separator");
                 String message = "From: " + sdf.format(startDate.getTime()) + eol
                         + "To: " + sdf.format(endDate.getTime()) + eol + eol
                         + description.replaceAll("/n", eol).replaceAll("NewLine", " ");
-                
+
                 mail.put("message", message);
-                
+
                 mails.add(mail);
             }
-            
         }
         
         return mails;
