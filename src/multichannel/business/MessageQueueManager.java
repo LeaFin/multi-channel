@@ -36,6 +36,7 @@ public class MessageQueueManager implements Serializable {
     */
    public MessageQueueManager(){
        messageQueue = new ArrayList<Message>();
+       lastImport.set(Calendar.YEAR, lastImport.get(Calendar.YEAR)-1);
    }
    
    public void setOwener(Contact contact){
