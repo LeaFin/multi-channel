@@ -12,13 +12,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author Stephan
- * 
  * Adds Button "Bild auswählen"
- * 
  * Adds a Path to a Picture.
- * 
  * All other methods and Dialogs included in this class
+ * Typ: JButton
+ * 
+ * @author Stephan
  * 
  */
 public class ButtonFileChooser extends JButton implements ActionListener {

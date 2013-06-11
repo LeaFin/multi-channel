@@ -7,9 +7,10 @@ import javax.swing.JCheckBox;
 
 /**
  *
- * @author Stephan
- * 
  * Adds a checkbox with the 4 Message-Typs
+ * Typ: JCheckBox
+ * 
+ * @author Stephan
  * 
  */
 public class CheckBoxSendTime extends JCheckBox implements ActionListener {

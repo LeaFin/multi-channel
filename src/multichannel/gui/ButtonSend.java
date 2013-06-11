@@ -12,12 +12,11 @@ import multichannel.business.Contact;
 
 /**
  *
- * @author Stephan
- *
  * Generiert den "Sende"-Button
- *
  * Beinhaltet alle notwendigen routinen um eine Nachricht zu versenden
+ * Typ: JButton
  *
+ * @author Stephan
  */
 public class ButtonSend extends JButton implements ActionListener {
 

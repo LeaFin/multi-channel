@@ -11,14 +11,12 @@ import multichannel.exception.NoContactException;
 
 /**
  *
- * @author Stephan
- * 
  * Adds Button "Adressbuch durchsuchen"
- * 
- * Founded contacts are direkt handled with the JList.
- * 
+ * Found contacts are direkt handled with the JList.
  * All other methods and Dialogs included in this class
+ * Typ: JButton
  * 
+ * @author Stephan
  */
 public class ButtonSearchContact extends JButton implements ActionListener {
 
@@ -47,6 +45,12 @@ GuiStart maingui;
         }
     }
 
+    /**
+     * Opens a new frame with the searchmask.
+     * 
+     * @return found contacts
+     * @throws NoContactException
+     */
     public Contact searchcontact() throws NoContactException {
         
         // Frame für Meldungen

@@ -6,10 +6,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Stephan
  * 
  * Generates the Panel for the Add-Image sektion
+ * Typ: JPanel
+ * 
+ *  author Stephan
  */
 public class PanelAddImage extends JPanel {
     
@@ -48,7 +49,7 @@ public class PanelAddImage extends JPanel {
     
     /**
      * Returns the path to the Picture
-     * @return
+     * @return picturepath as String
      */
     public String getPP(){
         return labelpicturepath.getText();

@@ -11,11 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Stephan
- * 
  * Generates the Panel for the Sendtime.
+ * Typ: JPanel
  * 
+ * @author Stephan
  */
 public class PanelSendTime extends JPanel {
 

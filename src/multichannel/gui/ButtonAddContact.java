@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package multichannel.gui;
 
 import java.awt.event.ActionEvent;
@@ -17,13 +13,12 @@ import multichannel.exception.NoContactException;
 
 /**
  *
- * @author Stephan
- * 
  * Adds Button "Neuer Empfänger"
- * 
  * New Contacts are direkt handled with the JList.
- * 
  * All other methods and Dialogs included in this class
+ * Typ: JButton
+ * 
+ * @author Stephan
  * 
  */
 public class ButtonAddContact extends JButton implements ActionListener {

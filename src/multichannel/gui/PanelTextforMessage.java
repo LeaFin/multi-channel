@@ -11,9 +11,10 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Stephan
- * 
  * Generatess the Panel with all Components for the Text in a Message.
+ * Typ: JPanel
+ * 
+ * @author Stephan
  */
 public class PanelTextforMessage extends JPanel {
 

@@ -12,6 +12,7 @@ import javax.swing.ToolTipManager;
 /**
  *
  * Liste für die Empfänger.
+ * Typ: JList
  * 
  * @author Stephan
  */

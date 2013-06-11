@@ -7,12 +7,12 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 /**
- * @author Stephan
  * 
  * Adds a checkbox with the 4 Message-Typs Mail, MMS, SMS, Printer
- * 
  * Set the choosen Typ direkt in the Maingui.
+ * Typ: JPanel
  * 
+ * @author Stephan
  */
 public class ButtonSendTyp extends JPanel implements ActionListener {
 
@@ -21,6 +21,7 @@ public class ButtonSendTyp extends JPanel implements ActionListener {
     /**
      * Generates the radiobuttons with the Sendtyps.
      * Needs the maingui to set the choosen type.
+     * 
      * @param maingui
      */
     public ButtonSendTyp(GuiStart maingui) {

@@ -8,9 +8,10 @@ import javax.swing.JButton;
 
 /**
  *
- * @author Stephan
- * 
  * Generates the Button to choose the sendtime
+ * Typ: JButton
+ * 
+ *  * @author Stephan
  */
 public class ButtonSendTime extends JButton {
 

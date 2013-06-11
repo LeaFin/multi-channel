@@ -8,10 +8,10 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Stephan
- * 
  * The panel with subject and Message.
+ * Typ: JPanel
  * 
+ * @author Stephan
  */
 public class PanelMessageTyp extends JPanel {
 

@@ -12,10 +12,10 @@ import javax.swing.KeyStroke;
 
 /**
  *
- * @author Stephan
- * 
  * Generates the whole Menü for the Mainframe.
+ * Typ: JMenuBar
  * 
+ * @author Stephan
  * 
  */
 public class Menu extends JMenuBar implements ActionListener {

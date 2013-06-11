@@ -20,12 +20,13 @@ import multichannel.business.MessageQueueManager;
 
 /**
  *
- * @author Stephan
+ * 
  * 
  * Generates Mainframe. Adds all Panels.
  * 
  * Helps to interact between all Panels. 
  * 
+ * @author Stephan
  */
 public class GuiStart {
     
@@ -137,7 +138,7 @@ public class GuiStart {
      * 1 = Multimedia
      * 2 = SMS
      * 
-     * @return
+     * @return Sendtyp as int 1= Mail,2=SMS,3=MMS,4=Print
      */
     public int getSendTyp() {
         return this.sendtyp;

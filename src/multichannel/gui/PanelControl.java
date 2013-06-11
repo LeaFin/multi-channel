@@ -13,10 +13,10 @@ import multichannel.business.Contact;
 
 /**
  *
- * @author Stephan
- * 
  * Generates the control-panel with the Send-Button and the whole receptions handling.
+ * Typ: JPanel
  * 
+ * @author Stephan
  */
 public class PanelControl extends JPanel {
 
@@ -72,6 +72,7 @@ public class PanelControl extends JPanel {
         pannelbuttonrcv.add(Box.createRigidArea(new Dimension(10,10)));
         pannelbuttonrcv.add(buttonsearch);
         
+        
     }
 
     
@@ -88,7 +89,7 @@ public class PanelControl extends JPanel {
 
     /**
      * Returns the datalist for the JList contact-List.
-     * @return
+     * @return defaultListModel for JLIst
      */
     public DefaultListModel getContactList() {
         return defaultListModel;
